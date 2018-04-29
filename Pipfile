@@ -1,0 +1,42 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+python-dotenv = "*"
+pytest = "*"
+WebTest = "*"
+factory-boy = "*"
+flake8 = "*"
+flake8-blind-except = "*"
+flake8-debugger = "*"
+flake8-docstrings = "*"
+flake8-isort = "*"
+flake8-quotes = "*"
+isort = "*"
+pep8-naming = "*"
+"e1839a8" = {path = ".", editable = true}
+
+[packages]
+itsdangerous = "*"
+click = "*"
+# psycopg2 = "*"
+gunicorn = "*"
+Flask = "*"
+MarkupSafe = "*"
+Werkzeug = "*"
+Jinja2 = "*"
+Flask-SQLAlchemy = "*"
+SQLAlchemy = "*"
+Flask-Migrate = "*"
+Flask-WTF = "*"
+WTForms = "*"
+Flask-Webpack = "*"
+Flask-Login = "*"
+Flask-Bcrypt = "*"
+Flask-Caching = "*"
+Flask-DebugToolbar = "*"
+
+[requires]
+python_version = "3.6"
