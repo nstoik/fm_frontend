@@ -11,7 +11,7 @@ const ManifestRevisionPlugin = require('manifest-revision-webpack-plugin');
 const debug = (process.env.NODE_ENV !== 'production');
 
 // Development asset host (webpack dev server)
-const publicHost = debug ? 'http://localhost:2992' : '';
+const publicHost = debug ? 'http://192.168.2.105:2992' : '';
 
 const rootAssetPath = path.join(__dirname, 'assets');
 
@@ -40,7 +40,7 @@ module.exports = {
     headers: { 'Access-Control-Allow-Origin': '*' },
   },
   module: {
-    loaders: [
+    rules: [
       { test: /\.html$/, loader: 'raw-loader' },
       { test: /\.less$/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!less-loader' }) },
       { test: /\.css$/, loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }) },

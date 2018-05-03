@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-python-dotenv = "*"
 pytest = "*"
 WebTest = "*"
 factory-boy = "*"
@@ -19,6 +18,7 @@ pep8-naming = "*"
 "e1839a8" = {path = ".", editable = true}
 
 [packages]
+python-dotenv = "*"
 itsdangerous = "*"
 click = "*"
 # psycopg2 = "*"
