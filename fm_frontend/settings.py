@@ -31,7 +31,7 @@ class DevConfig(Config):
 
     ENV = 'dev'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////home/pi/farm_monitor/fd/fm_database.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////home/pi/farm_monitor/fd/fm_database_frontend.db'
     DEBUG_TB_ENABLED = True
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
 
