@@ -31,12 +31,8 @@ In general, before running shell commands, set the ``FLASK_APP`` and
     FLASK_APP="fm_frontend.app:create_app"
     FLASK_ENV="debug"
 
-Once you have installed your DBMS, run the following to create your app's
-database tables and perform the initial migration ::
+Once you have installed your DBMS, run the following to start ::
 
-    flask db init
-    flask db migrate
-    flask db upgrade
     npm start
 
 
@@ -69,22 +65,6 @@ Running Tests
 To run all tests, run ::
 
     fm_frontend test
-
-
-Migrations
-----------
-
-Whenever a database migration needs to be made. Run the following commands ::
-
-    fm_frontend db migrate
-
-This will generate a new migration script. Then run ::
-
-    fm_frontend db upgrade
-
-To apply the migration.
-
-For a full migration command reference, run ``fm_frontend db --help``.
 
 
 Asset Management

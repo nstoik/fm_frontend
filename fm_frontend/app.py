@@ -3,8 +3,10 @@
 from flask import Flask, render_template
 from flask.helpers import get_env
 
+from fm_database.models.user import User
+
 from fm_frontend import commands, public, user
-from fm_frontend.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate, webpack
+from fm_frontend.extensions import cache, csrf_protect, db, debug_toolbar, login_manager, webpack
 
 
 def create_app(config=None, testing=False, cli=False):
@@ -39,16 +41,12 @@ def configure_app(app, testing=False):
 
 def register_extensions(app, cli):
     """Register Flask extensions."""
-    bcrypt.init_app(app)
     cache.init_app(app)
     db.init_app(app)
     csrf_protect.init_app(app)
     login_manager.init_app(app)
     debug_toolbar.init_app(app)
     webpack.init_app(app)
-
-    if cli:
-        migrate.init_app(app, db)
 
     return None
 
@@ -78,7 +76,7 @@ def register_shellcontext(app):
         """Shell context objects."""
         return {
             'db': db,
-            'User': user.models.User}
+            'User': User}
 
     app.shell_context_processor(shell_context)
 

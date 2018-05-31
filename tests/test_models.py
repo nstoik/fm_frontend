@@ -4,7 +4,7 @@ import datetime as dt
 
 import pytest
 
-from fm_frontend.user.models import Role, User
+from fm_database.models.user import Role, User
 
 from .factories import UserFactory
 

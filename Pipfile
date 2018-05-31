@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
+# testing packages
 pytest = "*"
 WebTest = "*"
 factory-boy = "*"
@@ -15,12 +16,16 @@ flake8-isort = "*"
 flake8-quotes = "*"
 isort = "*"
 pep8-naming = "*"
+
+# dev packages
+pylint = "*"
 "e1839a8" = {path = ".", editable = true}
 
 [packages]
 python-dotenv = "*"
 itsdangerous = "*"
 click = "*"
+# for Postgresql
 # psycopg2 = "*"
 gunicorn = "*"
 Flask = "*"
@@ -28,15 +33,13 @@ MarkupSafe = "*"
 Werkzeug = "*"
 Jinja2 = "*"
 Flask-SQLAlchemy = "*"
-SQLAlchemy = "*"
-Flask-Migrate = "*"
 Flask-WTF = "*"
 WTForms = "*"
 Flask-Webpack = "*"
 Flask-Login = "*"
-Flask-Bcrypt = "*"
 Flask-Caching = "*"
 Flask-DebugToolbar = "*"
+"9134919" = {path = "/home/pi/farm_monitor/fm/fm_database", editable = true}
 
 [requires]
 python_version = "3.6"

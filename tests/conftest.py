@@ -5,7 +5,7 @@ import pytest
 from webtest import TestApp
 
 from fm_frontend.app import create_app
-from fm_frontend.database import db as _db
+from fm_frontend.extensions import db as _db
 from fm_frontend.settings import TestConfig
 
 from .factories import UserFactory
