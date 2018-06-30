@@ -7,8 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_webpack import Webpack
 from flask_wtf.csrf import CSRFProtect
 
+from fm_database.base import get_base
 from fm_database.extensions import pwd_context
-from fm_database.models.base import get_base
 
 pwd_context = pwd_context
 csrf_protect = CSRFProtect()
