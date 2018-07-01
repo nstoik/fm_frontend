@@ -1,61 +1,62 @@
-
-<!doctype html>
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="author" content="{% block meta_author %}{% endblock %}">
 
-  <title>
-    {% block page_title %}
-      fm_frontend
-    {% endblock %}
-  </title>
-  <meta name="description" content="{% block meta_description %}{% endblock %}">
-  <meta name="author" content="{% block meta_author %}{% endblock %}">
+    <title>
+        {% block page_title %}
+            fm_frontend
+        {% endblock %}
+    </title>
 
-  <!-- Mobile viewport optimized: h5bp.com/viewport -->
-  <meta name="viewport" content="width=device-width">
-
-  {{ stylesheet_tag('main_css') | safe }}
-
-  {% block css %}{% endblock %}
-
+    {{ stylesheet_tag('main_css') | safe }}
+    
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 </head>
+
 <body class="{% block body_class %}{% endblock %}">
 {% block body %}
-{% with form=form  %}
-{% include "nav.html" %}
-{% endwith %}
+    <div class="wrapper">
+        {% with form=form  %}
+        {% include "nav.html" %}
+        {% endwith %}
+        <div id="content">
+            <!-- Page Content  -->
+            <header>{% block header %}{% endblock %}</header>
+            <div class="{% block content_class %}container{% endblock content_class %}">
+                <div role="main">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        <div class="row">
+                        <div class="col-md-12">
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                            <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+                            {{message}}
+                            </div><!-- end .alert -->
+                            {% endfor %}
+                        </div><!-- end col-md -->
+                        </div><!-- end row -->
+                        {% endif %}
+                    {% endwith %}
+                
+                    {% block content %}{% endblock %}
+                </div>
+            </div><!-- end container -->
+            {% include "footer.html" %}
+        </div>
+    </div>
 
-<header>{% block header %}{% endblock %}</header>
-<div class="{% block content_class %}container{% endblock content_class %}">
+    <!-- JavaScript at the bottom for fast page loading -->
+    {{ javascript_tag('main_js') | safe }}
+    {% block js %}{% endblock %}
+    <!-- end scripts -->
 
-  <div role="main">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="row">
-      <div class="col-md-12">
-        {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">
-          <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-         {{message}}
-        </div><!-- end .alert -->
-        {% endfor %}
-      </div><!-- end col-md -->
-    </div><!-- end row -->
-        {% endif %}
-    {% endwith %}
-
-    {% block content %}{% endblock %}
-  </div>
-
-</div><!-- end container -->
-
-{% include "footer.html" %}
-
-<!-- JavaScript at the bottom for fast page loading -->
-{{ javascript_tag('main_js') | safe }}
-{% block js %}{% endblock %}
-<!-- end scripts -->
-{% endblock %}
+    {% endblock %}<!-- end body block -->
 </body>
 </html>
-
