@@ -14,9 +14,9 @@
     </title>
 
     {{ stylesheet_tag('main_css') | safe }}
+
+    <link rel="shortcut icon" href="{{ asset_url_for('img/favicon.ico') }}">
     
-    <!-- Scrollbar Custom CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 </head>
 
 <body class="{% block body_class %}{% endblock %}">

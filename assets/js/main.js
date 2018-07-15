@@ -9,8 +9,9 @@ require('jquery');
 require('font-awesome-webpack');
 require('popper.js');
 require('bootstrap');
-require('malihu-custom-scrollbar-plugin')
+require('malihu-custom-scrollbar-plugin');
 
 // Your own code
 require('./plugins.js');
 require('./script.js');
+

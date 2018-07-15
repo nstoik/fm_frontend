@@ -16,7 +16,6 @@ flake8-isort = "*"
 flake8-quotes = "*"
 isort = "*"
 pep8-naming = "*"
-
 # dev packages
 pylint = "*"
 "e1839a8" = {path = ".", editable = true}

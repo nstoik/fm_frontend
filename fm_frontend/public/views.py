@@ -4,7 +4,6 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
 
 from fm_database.models.user import User
-
 from fm_frontend.extensions import login_manager
 from fm_frontend.public.forms import LoginForm
 from fm_frontend.user.forms import RegisterForm
@@ -27,6 +26,7 @@ def home():
     if request.method == 'POST':
         if form.validate_on_submit():
             login_user(form.user)
+            # get api credentials
             flash('You are logged in.', 'success')
             redirect_url = request.args.get('next') or url_for('user.members')
             return redirect(redirect_url)
@@ -44,7 +44,8 @@ def logout():
     return redirect(url_for('public.home'))
 
 
-@blueprint.route('/register/', methods=['GET', 'POST'])
+# disable registering of new users
+# @blueprint.route('/register/', methods=['GET', 'POST'])
 def register():
     """Register new user."""
     form = RegisterForm(request.form)
@@ -62,3 +63,9 @@ def about():
     """About page."""
     form = LoginForm(request.form)
     return render_template('public/about.html', form=form)
+
+
+@blueprint.route('/dashboard/')
+def dashboard():
+    """Dashboard page."""
+    return redirect(url_for('public.home'))
