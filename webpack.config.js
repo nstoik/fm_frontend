@@ -12,7 +12,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const debug = (process.env.NODE_ENV !== 'production');
 
 // Development asset host (webpack dev server)
-const publicHost = debug ? 'http://192.168.2.105:2992' : '';
+console.log('debug value is: ' + debug)
+const publicHost = debug ? 'http://10.10.1.53:2992' : '';
 
 const rootAssetPath = path.join(__dirname, 'assets');
 
@@ -46,6 +47,8 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     headers: { 'Access-Control-Allow-Origin': '*' },
+    publicPath: `${publicHost}/static/build/`,
+    public: `${publicHost}`
   },
   module: {
     rules: [
