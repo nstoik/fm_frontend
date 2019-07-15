@@ -26,11 +26,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
+    "bootstrap-vue": "^2.0.0-rc.20",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "malihu-custom-scrollbar-plugin": "^3.1.5",
     "popper.js": "^1.14.3",
-    "vue": "^2.5.16"
+    "vue": "^2.6.10"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -39,7 +40,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "concurrently": "^3.5.0",
-    "css-loader": "^0.28.4",
+    "css-loader": "^2.1.1",
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.3.0",

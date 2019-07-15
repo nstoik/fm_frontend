@@ -21,23 +21,23 @@ pylint = "*"
 "e1839a8" = {path = ".", editable = true}
 
 [packages]
-python-dotenv = "*"
-itsdangerous = "*"
-click = "*"
+python-dotenv = "~=0.10.3"
+itsdangerous = "~=1.1.0"
+click = "~=7.0.0"
 # for Postgresql
 # psycopg2 = "*"
-gunicorn = "*"
-Flask = "*"
-MarkupSafe = "*"
-Werkzeug = "*"
-Jinja2 = ">=2.10.1"
-Flask-SQLAlchemy = "*"
-Flask-WTF = "*"
-WTForms = "*"
-Flask-Webpack = "*"
-Flask-Login = "*"
-Flask-Caching = "*"
-Flask-DebugToolbar = "*"
+gunicorn = "~=19.9.0"
+Flask = "~=1.1.1"
+MarkupSafe = "~=1.1.1"
+Werkzeug = "~=0.15.4"
+Jinja2 = "~=2.10.1"
+Flask-SQLAlchemy = "~=2.4.0"
+Flask-WTF = "~=0.14.2"
+WTForms = "~=2.2.1"
+Flask-Webpack = "~=0.1.0"
+Flask-Login = "~=0.4.1"
+Flask-Caching = "~=1.7.2"
+Flask-DebugToolbar = "~=0.10.1"
 "9134919" = {path = "/home/pi/farm_monitor/fm/fm_database", editable = true}
 
 [requires]
