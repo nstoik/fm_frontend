@@ -5,6 +5,7 @@ import datetime as dt
 import pytest
 
 from fm_database.models.user import Role, User
+from fm_database.base import get_session
 
 from .factories import UserFactory
 
@@ -13,25 +14,25 @@ from .factories import UserFactory
 class TestUser:
     """User tests."""
 
-    def test_get_by_id(self):
+    def test_get_by_id(self, db):
         """Get user by ID."""
         user = User('foo', 'foo@bar.com')
-        user.save()
+        user.save(db.session)
 
         retrieved = User.get_by_id(user.id)
         assert retrieved == user
 
-    def test_created_at_defaults_to_datetime(self):
+    def test_created_at_defaults_to_datetime(self, db):
         """Test creation date."""
         user = User(username='foo', email='foo@bar.com')
-        user.save()
+        user.save(db.session)
         assert bool(user.created_at)
         assert isinstance(user.created_at, dt.datetime)
 
-    def test_password_is_nullable(self):
+    def test_password_is_nullable(self, db):
         """Test null password."""
         user = User(username='foo', email='foo@bar.com')
-        user.save()
+        user.save(db.session)
         assert user.password is None
 
     def test_factory(self, db):
@@ -45,10 +46,10 @@ class TestUser:
         assert user.active is True
         assert user.check_password('myprecious')
 
-    def test_check_password(self):
+    def test_check_password(self, db):
         """Check password."""
         user = User.create(username='foo', email='foo@bar.com',
-                           password='foobarbaz123')
+                           password='foobarbaz123', session=db.session)
         assert user.check_password('foobarbaz123') is True
         assert user.check_password('barfoobaz') is False
 
@@ -57,11 +58,11 @@ class TestUser:
         user = UserFactory(first_name='Foo', last_name='Bar')
         assert user.full_name == 'Foo Bar'
 
-    def test_roles(self):
+    def test_roles(self, db):
         """Add a role to a user."""
         role = Role(name='admin')
-        role.save()
+        role.save(db.session)
         user = UserFactory()
         user.roles.append(role)
-        user.save()
+        user.save(db.session)
         assert role in user.roles
