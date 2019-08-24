@@ -13,7 +13,7 @@ const debug = (process.env.NODE_ENV !== 'production');
 
 // Development asset host (webpack dev server)
 console.log('debug value is: ' + debug)
-const publicHost = debug ? 'http://10.10.1.53:2992' : '';
+const publicHost = debug ? 'http://127.0.0.1:2992' : '';
 
 const rootAssetPath = path.join(__dirname, 'assets');
 

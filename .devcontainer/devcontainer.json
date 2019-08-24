@@ -5,21 +5,21 @@
 	"context": "..",
 	"dockerFile": "dev.Dockerfile",
 
-	"appPort": [5000],
+	"appPort": [5000, 2992],
 
 	//  Uncomment the next line to run commands after the container is created.
-	"postCreateCommand": "export LC_ALL=C.UTF-8 && git config --global core.autocrlf true",
+	"postCreateCommand": "git config --global core.autocrlf true",
 
 	// Uncomment the next line to use a non-root user. See https://aka.ms/vscode-remote/containers/non-root-user.
-	"runArgs": [ "-u", "1000" ],
+	"runArgs": [ "-u", "fm" ],
 
 	"extensions": [
 		"ms-python.python"
 	],
 	"settings": {
-		"python.pythonPath": "/usr/local/bin/python",
+		//"python.pythonPath": "/usr/local/bin/python",
 		"python.linting.pylintEnabled": true,
-		"python.linting.pylintPath": "/usr/local/bin/pylint",
+		//"python.linting.pylintPath": "/usr/local/bin/pylint",
 		"python.linting.enabled": true
 	}
 }

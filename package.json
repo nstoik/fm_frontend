@@ -39,7 +39,7 @@
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "concurrently": "^3.5.0",
+    "concurrently": "^3.6.1",
     "css-loader": "^2.1.1",
     "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^12.1.0",
