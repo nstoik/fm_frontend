@@ -1,0 +1,11 @@
+version: '2'
+
+services: 
+  fm_frontend:
+    image: fm_frontend:latest
+    container_name: fm_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose: 
+      - 5000/tcp

@@ -1,0 +1,25 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or the definition README at
+// https://github.com/microsoft/vscode-dev-containers/tree/master/containers/python-3
+{
+	"name": "Python 3",
+	"context": "..",
+	"dockerFile": "dev.Dockerfile",
+
+	"appPort": [5000],
+
+	//  Uncomment the next line to run commands after the container is created.
+	"postCreateCommand": "export LC_ALL=C.UTF-8 && git config --global core.autocrlf true",
+
+	// Uncomment the next line to use a non-root user. See https://aka.ms/vscode-remote/containers/non-root-user.
+	"runArgs": [ "-u", "1000" ],
+
+	"extensions": [
+		"ms-python.python"
+	],
+	"settings": {
+		"python.pythonPath": "/usr/local/bin/python",
+		"python.linting.pylintEnabled": true,
+		"python.linting.pylintPath": "/usr/local/bin/pylint",
+		"python.linting.enabled": true
+	}
+}
