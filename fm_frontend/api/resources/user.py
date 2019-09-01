@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required
+from marshmallow.exceptions import ValidationError
 
 from fm_database.models.user import User
 
@@ -25,16 +26,17 @@ class UserResource(Resource):
     def get(self, user_id):
         schema = UserSchema()
         user = User.query.get_or_404(user_id)
-        return {"user": schema.dump(user).data}
+        return {"user": schema.dump(user)}
 
     def put(self, user_id):
         schema = UserSchema(partial=True)
         user = User.query.get_or_404(user_id)
-        user, errors = schema.load(request.json, instance=user)
-        if errors:
-            return errors, 422
+        try:
+            user = schema.load(request.json, instance=user)
+        except ValidationError as err:
+            return err.normalized_messages(), 422
 
-        return {"msg": "user updated", "user": schema.dump(user).data}
+        return {"msg": "user updated", "user": schema.dump(user)}
 
     def delete(self, user_id):
         user = User.query.get_or_404(user_id)
@@ -56,11 +58,12 @@ class UserList(Resource):
 
     def post(self):
         schema = UserSchema()
-        user, errors = schema.load(request.json)
-        if errors:
-            return errors, 422
+        try:
+            user = schema.load(request.json)
+        except ValidationError as err:
+            return err.normalized_messages(), 422
 
         db.session.add(user)
         db.session.commit()
 
-        return {"msg": "user created", "user": schema.dump(user).data}, 201
+        return {"msg": "user created", "user": schema.dump(user)}, 201

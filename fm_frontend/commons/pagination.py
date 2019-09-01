@@ -23,11 +23,10 @@ def paginate(query, schema):
         per_page=per_page,
         **request.view_args
     )
-
     return {
         'total': page_obj.total,
         'pages': page_obj.pages,
         'next': next,
         'prev': prev,
-        'results': schema.dump(page_obj.items).data
+        'results': schema.dump(page_obj.items)
     }

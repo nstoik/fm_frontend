@@ -132,8 +132,8 @@ def init():
     """Init application. Create a new user named admin 
     with password admin
     """
-    from fm_api.extensions import db
-    from fm_api.models import User
+    from .extensions import db
+    from fm_database.models.user import User
 
     click.echo("create user")
     user = User(

@@ -28,6 +28,7 @@ def test_get_user(client, db, user, admin_headers):
     assert rep.status_code == 200
 
     data = rep.get_json()['user']
+    print(data)
     assert data['username'] == user.username
     assert data['email'] == user.email
     assert data['active'] == user.active

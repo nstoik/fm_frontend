@@ -5,7 +5,7 @@ name = "pypi"
 
 [dev-packages]
 # testing packages
-pytest = "*"
+pytest = "<=5.0.1"
 pytest-flask = "*"
 pytest-runner = "*"
 pytest-factoryboy = "*"
@@ -21,7 +21,7 @@ isort = "*"
 pep8-naming = "*"
 # dev packages
 pylint = "*"
-"e1839a8" = {path = ".", editable = true}
+e1839a8 = {path = ".",editable = true}
 
 [packages]
 python-dotenv = "~=0.10.3"
@@ -46,7 +46,8 @@ Flask-Webpack = "~=0.1.0"
 Flask-Login = "~=0.4.1"
 Flask-Caching = "~=1.7.2"
 Flask-DebugToolbar = "~=0.10.1"
-fm_database = {git = "https://github.com/nstoik/fm_database", editable = true}
+fm_database = {git = "https://github.com/nstoik/fm_database",editable = true}
+alembic = "*"
 
 [requires]
 python_version = "3.6"
