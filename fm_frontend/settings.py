@@ -22,7 +22,7 @@ class ProdConfig(Config):
 
     ENV = 'prod'
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////workspaces/fm_frontend/fm_database.db'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://fm:farm_monitor@db/farm_monitor.db'
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
 
 
@@ -31,7 +31,8 @@ class DevConfig(Config):
 
     ENV = 'dev'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////workspaces/fm_frontend/fm_database.db'
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:////workspaces/fm_frontend/fm_database.db'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://fm:farm_monitor@db/farm_monitor.db'
     DEBUG_TB_ENABLED = True
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
 

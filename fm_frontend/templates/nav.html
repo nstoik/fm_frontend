@@ -1,10 +1,10 @@
 <!-- Sidebar  -->
 <nav class="navbar navbar-dark bg-dark" id="sidebar">
     <ul class="navbar-nav mr-auto mt-auto">
-        <li class="nav-item {% if request.endpoint.endswith('public.home') %}active{% endif %}">
+        <li class="nav-item {% if (request.endpoint is not none) and (request.endpoint.endswith('public.home')) %}active{% endif %}">
             <a class="nav-link" href="{{ url_for('public.home') }}">Home</a>
         </li>
-        <li class="nav-item {% if request.endpoint.endswith('public.about') %}active{% endif %}">
+        <li class="nav-item {% if (request.endpoint is not none) and (request.endpoint.endswith('public.about')) %}active{% endif %}">
             <a class="nav-link" href="{{ url_for('public.about') }}">About</a>
         </li>
     </ul>

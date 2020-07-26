@@ -1,7 +1,7 @@
 // App initialization code goes here
 
-//const axios = require('axios')
-import 'axios'
+const axios = require('axios')
+//import 'axios'
 
 $(document).ready(function () {
     // Sidebar init
@@ -20,7 +20,7 @@ $(document).ready(function () {
         var username = $('#loginForm #username').val()
         var password = $('#loginForm #password').val()
         var content = {'username': username, 'password': password}
-        var url = 'http://' + window.location.hostname + ':3000/auth/login'
+        var url = 'http://' + window.location.hostname + ':5000/auth/login'
         var config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ $(document).ready(function () {
             localStorage.setItem('access_token', response.data['access_token'])
         })
         .catch(function (error) {
-            console.log(error.response.data)
+            console.log(error)
         });   
     });
 

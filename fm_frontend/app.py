@@ -67,6 +67,8 @@ def register_blueprints(app):
     # api blueprints
     CORS(auth.views.blueprint)
     CORS(api.views.blueprint)
+    csrf_protect.exempt(auth.views.blueprint)
+    csrf_protect.exempt(api.views.blueprint)
     app.register_blueprint(auth.views.blueprint)
     app.register_blueprint(api.views.blueprint)
 
@@ -79,7 +81,7 @@ def register_errorhandlers(app):
         """Render error template."""
         # If a HTTPException, pull the `code` attribute; default to 500
         error_code = getattr(error, 'code', 500)
-        return render_template('{0}.html'.format(error_code)), error_code
+        return render_template('{0}.html'.format(error_code), error=error), error_code
     for errcode in [400, 401, 404, 500]:
         app.errorhandler(errcode)(render_error)
     return None
