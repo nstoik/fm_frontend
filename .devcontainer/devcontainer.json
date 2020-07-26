@@ -11,9 +11,11 @@
         "dev.docker-compose.yml"
     ],
 
-    "service": "fm_frontend",
-    "workspaceFolder": "/workspace",
-    "shutdownAction": "stopCompose",
+	"remoteUser": "fm",
+	"service": "fm_frontend",
+	//"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/test,type=bind,consistency=cached",
+    "workspaceFolder": "/workspaces/fm_frontend",
+    //"shutdownAction": "stopCompose",
 
 	"appPort": [5000, 2992],
 
