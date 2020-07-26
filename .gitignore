@@ -1,3 +1,6 @@
+# database files
+*.db
+
 .pytest_cache/
 
 .vscode/
