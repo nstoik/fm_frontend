@@ -1,9 +1,19 @@
 // For format details, see https://aka.ms/vscode-remote/devcontainer.json or the definition README at
 // https://github.com/microsoft/vscode-dev-containers/tree/master/containers/python-3
 {
-	"name": "Python 3",
+	"name": "FM FRONTEND",
 	"context": "..",
-	"dockerFile": "dev.Dockerfile",
+	//"dockerFile": "dev.Dockerfile",
+
+	 // The order of the files is important since later files override previous ones
+	 "dockerComposeFile": [
+        "../docker-compose.yml",
+        "dev.docker-compose.yml"
+    ],
+
+    "service": "fm_frontend",
+    "workspaceFolder": "/workspace",
+    "shutdownAction": "stopCompose",
 
 	"appPort": [5000, 2992],
 
@@ -14,7 +24,8 @@
 	"runArgs": [ "-u", "fm" ],
 
 	"extensions": [
-		"ms-python.python"
+		"ms-python.python",
+		"alexcvzz.vscode-sqlite"
 	],
 	"settings": {
 		//"python.pythonPath": "/usr/local/bin/python",
