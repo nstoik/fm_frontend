@@ -15,7 +15,7 @@
 	"service": "fm_frontend",
 	//"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/test,type=bind,consistency=cached",
     "workspaceFolder": "/workspaces/fm_frontend",
-    //"shutdownAction": "stopCompose",
+    "shutdownAction": "stopCompose",
 
 	"appPort": [5000, 2992],
 
@@ -23,7 +23,7 @@
 	"postCreateCommand": "git config --global core.autocrlf true",
 
 	// Uncomment the next line to use a non-root user. See https://aka.ms/vscode-remote/containers/non-root-user.
-	"runArgs": [ "-u", "fm" ],
+	//"runArgs": [ "-u", "fm" ],
 
 	"extensions": [
 		"ms-python.python",

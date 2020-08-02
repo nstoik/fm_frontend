@@ -4,7 +4,7 @@ const webpack = require('webpack');
 /*
  * Webpack Plugins
  */
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestRevisionPlugin = require('manifest-revision-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
@@ -62,11 +62,11 @@ module.exports = {
       },
       { 
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!less-loader' }) 
+        use: [MiniCssExtractPlugin.loader,'css-loader!less-loader' ] ,
       },
-      { 
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }) 
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       { 
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -92,7 +92,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new ExtractTextPlugin('[name].[hash].css'),
+    new MiniCssExtractPlugin(),
     new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
     new ManifestRevisionPlugin(path.join(__dirname, 'fm_frontend', 'webpack', 'manifest.json'), {
       rootAssetPath: rootAssetPath,

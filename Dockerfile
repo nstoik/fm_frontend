@@ -1,5 +1,5 @@
 # Build the node components
-FROM node:10 as nodebuild
+FROM node:12 as nodebuild
 COPY package* webpack.config.js /workspaces/
 COPY assets  /workspaces/assets/
 RUN mkdir -p /workspaces/fm_frontend/webpack
