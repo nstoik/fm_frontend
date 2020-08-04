@@ -7,8 +7,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    expose: 
-      - 5000/tcp
+    ports: 
+      - 5000:5000/tcp
     networks:
       - farm_monitor
     depends_on:

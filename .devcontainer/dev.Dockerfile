@@ -34,14 +34,6 @@ RUN apt-get update && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
-# add bash history. https://code.visualstudio.com/docs/remote/containers-advanced#_persist-bash-history-between-runs
-RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
-    && echo $SNIPPET >> "/root/.bashrc" \
-    # [Optional] If you have a non-root user
-    && mkdir /commandhistory \
-    && touch /commandhistory/.bash_history \
-    && chown -R $USERNAME /commandhistory \
-    && echo $SNIPPET >> "/home/$USERNAME/.bashrc"
 
 RUN pip install -U pip && pip install pipenv && \
     # create new user
@@ -54,6 +46,15 @@ RUN pip install -U pip && pip install pipenv && \
     # make working directory and change owner
     mkdir -p /workspaces/fm_frontend/ && \
     chown $USER_UID:$USER_GID /workspaces/fm_frontend/
+
+# add bash history. https://code.visualstudio.com/docs/remote/containers-advanced#_persist-bash-history-between-runs
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+    && echo $SNIPPET >> "/root/.bashrc" \
+    # [Optional] If you have a non-root user
+    && mkdir /commandhistory \
+    && touch /commandhistory/.bash_history \
+    && chown -R $USERNAME /commandhistory \
+    && echo $SNIPPET >> "/home/$USERNAME/.bashrc"
 
 # Change to the newly created user
 USER $USER_UID:$USER_GID

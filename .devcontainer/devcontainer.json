@@ -17,7 +17,7 @@
     "workspaceFolder": "/workspaces/fm_frontend",
     "shutdownAction": "stopCompose",
 
-	"appPort": [5000, 2992],
+	//"forwardPorts": [5000, 2992],
 
 	//  Uncomment the next line to run commands after the container is created.
 	"postCreateCommand": "git config --global core.autocrlf true",
