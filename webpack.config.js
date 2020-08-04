@@ -24,7 +24,7 @@ module.exports = {
     app: './assets/js/index',
     main_js: './assets/js/main',
     main_css: [
-      path.join(__dirname, 'node_modules', 'font-awesome', 'css', 'font-awesome.css'),
+      path.join(__dirname, 'node_modules', '@fortawesome', 'fontawesome-free', 'css', 'fontawesome.css'),
       path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'css', 'bootstrap.css'),
       path.join(__dirname, 'node_modules', 'malihu-custom-scrollbar-plugin', 'jquery.mCustomScrollbar.css'),
       path.join(__dirname, 'assets', 'css', 'style.css'),

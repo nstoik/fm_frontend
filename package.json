@@ -27,13 +27,13 @@
     "axios": "^0.19",
     "bootstrap": "^4.5",
     "bootstrap-vue": "^2.16",
-    "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
     "malihu-custom-scrollbar-plugin": "^3.1.5",
     "popper.js": "^1.16",
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.1",
     "babel-loader": "^7",
@@ -45,7 +45,6 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "file-loader": "^6.0",
-    "font-awesome-webpack": "git+https://github.com/nstoik/font-awesome-webpack.git#440af2a2efe7ba1779d039556f04538e57bad4bb",
     "less": "^3.12",
     "less-loader": "^6.2.0",
     "manifest-revision-webpack-plugin": "^0.4.1",
