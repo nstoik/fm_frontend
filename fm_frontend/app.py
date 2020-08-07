@@ -7,7 +7,7 @@ from flask_cors import CORS
 from fm_database.models.user import User
 
 from fm_frontend import api, auth, commands, public, user
-from fm_frontend.extensions import cache, csrf_protect, db, debug_toolbar, login_manager, webpack, jwt
+from fm_frontend.extensions import cache, csrf_protect, db, debug_toolbar, login_manager, jwt, flask_static_digest
 
 
 def create_app(config=None, testing=False, cli=False):
@@ -53,8 +53,8 @@ def register_extensions(app, cli):
     csrf_protect.init_app(app)
     login_manager.init_app(app)
     debug_toolbar.init_app(app)
-    webpack.init_app(app)
     jwt.init_app(app)
+    flask_static_digest.init_app(app)
 
     return None
 
