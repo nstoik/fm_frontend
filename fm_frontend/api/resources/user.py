@@ -10,17 +10,17 @@ from fm_frontend.extensions import ma, db
 from fm_frontend.commons.pagination import paginate
 
 
-class UserSchema(ma.ModelSchema):
+class UserSchema(ma.SQLAlchemySchema):
 
-    # password = ma.String(load_only=True, required=True)
+    password = ma.String(load_only=True, required=True)
 
     class Meta:
-        exclude = ["password",]
+        # exclude = ["password",]
         model = User
         sqla_session = db.session
 
 
-class RoleSchema(ma.ModelSchema):
+class RoleSchema(ma.SQLAlchemySchema):
 
     class Meta:
         model = Role
