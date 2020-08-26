@@ -14,6 +14,6 @@
 
 {% block js %}
 
-static_url_for('static', filename='js/index.js')
+<script id="app" src="{{ webpack_url_for('app.js') }}"></script>
 
 {% endblock %}

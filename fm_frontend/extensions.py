@@ -11,7 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from flask_jwt_extended import JWTManager
 from flask_marshmallow import Marshmallow
-from flask_static_digest import FlaskStaticDigest
+from flask_manage_webpack import FlaskManageWebpack
 
 from fm_database.base import get_base
 from fm_database.extensions import pwd_context
@@ -22,6 +22,6 @@ login_manager = LoginManager()
 db = SQLAlchemy(model_class=get_base())
 cache = Cache()
 debug_toolbar = DebugToolbarExtension()
-flask_static_digest = FlaskStaticDigest()
+flask_manage_webpack = FlaskManageWebpack()
 jwt = JWTManager()
 ma = Marshmallow()
