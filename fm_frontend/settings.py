@@ -13,6 +13,7 @@ class Config(object):
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MANAGE_WEBPACK_MANIFEST_PATH = os.path.abspath(os.path.join(APP_DIR, 'static', 'manifest.json'))
 
 
 class ProdConfig(Config):
