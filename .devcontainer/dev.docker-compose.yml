@@ -1,4 +1,4 @@
-version: '2'
+version: '3.8'
 
 services: 
   fm_frontend:
@@ -12,8 +12,6 @@ services:
       - 2992:2992/tcp
     networks:
       - farm_monitor
-    depends_on:
-      - "db"
 
     volumes:
       # this is for vs code file editing inside the container
@@ -23,10 +21,11 @@ services:
 
     # Overrides default command so things don't shut down after the process ends.
     command: /bin/sh -c "while sleep 1000; do :; done"
+  # override container name for database when developing
   
 volumes:
-  dbdata:
   fm_frontend-bashhistory:
 
 networks:
   farm_monitor:
+    external: true

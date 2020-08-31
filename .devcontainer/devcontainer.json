@@ -3,7 +3,6 @@
 {
 	"name": "FM FRONTEND",
 	"context": "..",
-	//"dockerFile": "dev.Dockerfile",
 
 	 // The order of the files is important since later files override previous ones
 	 "dockerComposeFile": [
@@ -13,11 +12,8 @@
 
 	"remoteUser": "fm",
 	"service": "fm_frontend",
-	//"workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/test,type=bind,consistency=cached",
     "workspaceFolder": "/workspaces/fm_frontend",
     "shutdownAction": "stopCompose",
-
-	//"forwardPorts": [5000, 2992],
 
 	//  Uncomment the next line to run commands after the container is created.
 	"postCreateCommand": "git config --global core.autocrlf true",
