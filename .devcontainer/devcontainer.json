@@ -22,8 +22,7 @@
 	//"runArgs": [ "-u", "fm" ],
 
 	"extensions": [
-		"ms-python.python",
-		"alexcvzz.vscode-sqlite"
+		"ms-python.python"
 	],
 	"settings": {
 		//"python.pythonPath": "/usr/local/bin/python",

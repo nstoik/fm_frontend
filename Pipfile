@@ -12,6 +12,7 @@ pytest-factoryboy = "*"
 WebTest = "*"
 factory-boy = "*"
 isort = "*"
+
 # dev packages
 pylint = "*"
 e1839a8 = {path = ".",editable = true}
