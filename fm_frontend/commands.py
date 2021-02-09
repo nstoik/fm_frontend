@@ -19,6 +19,7 @@ def test():
     """Run the tests."""
     import pytest
     rv = pytest.main([TEST_PATH, '--verbose'])
+    click.echo("Tests complete with return value %s" % rv)
     exit(rv)
 
 
@@ -124,3 +125,23 @@ def urls(url, order):
 
     for row in rows:
         click.echo(str_template.format(*row[:column_length]))
+
+
+@click.command("init")
+def init():
+    """Init application. Create a new user named admin 
+    with password admin
+    """
+    from .extensions import db
+    from fm_database.models.user import User
+
+    click.echo("create user")
+    user = User(
+        username='admin',
+        email='admin@mail.com',
+        password='admin',
+        active=True
+    )
+    db.session.add(user)
+    db.session.commit()
+    click.echo("created user admin")

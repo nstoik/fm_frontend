@@ -3,6 +3,7 @@
 
 See: http://webtest.readthedocs.org/
 """
+import pytest
 from flask import url_for
 
 from fm_database.models.user import User
@@ -65,6 +66,7 @@ class TestLoggingIn:
         assert 'Unknown user' in res
 
 
+@pytest.mark.skipif(True, reason='App not open for registration')
 class TestRegistering:
     """Register a user."""
 

@@ -13,9 +13,9 @@
         {% endblock %}
     </title>
 
-    {{ stylesheet_tag('main_css') | safe }}
+    <link rel="stylesheet" href="{{ webpack_url_for('main_css.css') }}">
 
-    <link rel="shortcut icon" href="{{ asset_url_for('img/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ webpack_url_for('img/favicon.ico') }}"
     
 </head>
 
@@ -53,7 +53,7 @@
     </div>
 
     <!-- JavaScript at the bottom for fast page loading -->
-    {{ javascript_tag('main_js') | safe }}
+    <script id="main_js" src="{{ webpack_url_for('main_js.js') }}"></script>
     {% block js %}{% endblock %}
     <!-- end scripts -->
 

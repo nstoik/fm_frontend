@@ -6,7 +6,6 @@
 
 // JavaScript modules
 require('jquery');
-require('font-awesome-webpack');
 require('popper.js');
 require('bootstrap');
 require('malihu-custom-scrollbar-plugin');
@@ -14,4 +13,9 @@ require('malihu-custom-scrollbar-plugin');
 // Your own code
 require('./plugins.js');
 require('./script.js');
+
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
 

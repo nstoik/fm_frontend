@@ -4,16 +4,21 @@ const webpack = require('webpack');
 /*
  * Webpack Plugins
  */
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ManifestRevisionPlugin = require('manifest-revision-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 // take debug mode from the environment
 const debug = (process.env.NODE_ENV !== 'production');
+const hashType = debug ? '[hash]': '[contentHash]'
 
 // Development asset host (webpack dev server)
 console.log('debug value is: ' + debug)
-const publicHost = debug ? 'http://10.10.1.53:2992' : '';
+const publicHost = debug ? 'http://127.0.0.1:2992' : '';
 
 const rootAssetPath = path.join(__dirname, 'assets');
 
@@ -24,7 +29,7 @@ module.exports = {
     app: './assets/js/index',
     main_js: './assets/js/main',
     main_css: [
-      path.join(__dirname, 'node_modules', 'font-awesome', 'css', 'font-awesome.css'),
+      path.join(__dirname, 'node_modules', '@fortawesome', 'fontawesome-free', 'css', 'fontawesome.css'),
       path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'css', 'bootstrap.css'),
       path.join(__dirname, 'node_modules', 'malihu-custom-scrollbar-plugin', 'jquery.mCustomScrollbar.css'),
       path.join(__dirname, 'assets', 'css', 'style.css'),
@@ -32,10 +37,26 @@ module.exports = {
     ],
   },
   output: {
-    path: path.join(__dirname, 'fm_frontend', 'static', 'build'),
-    publicPath: `${publicHost}/static/build/`,
-    filename: '[name].[hash].js',
-    chunkFilename: '[id].[hash].js',
+    path: path.join(__dirname, 'fm_frontend', 'static'),
+    publicPath: `${publicHost}/static/`,
+    filename: "js/[name]." + hashType + ".js",
+    chunkFilename: "js/[name]." + hashType + ".chunk.js"
+  },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+          test: /\.js(\?.*)?$/i,
+          sourceMap: true,
+      }),
+      new OptimizeCssAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        cssProcessor: require('cssnano'),
+        cssProcessorPluginOptions: {
+          preset: ['default', { discardComments: { removeAll: true } }],
+        },
+        canPrint: true
+      }),
+    ],
   },
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.vue'],
@@ -47,7 +68,7 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     headers: { 'Access-Control-Allow-Origin': '*' },
-    publicPath: `${publicHost}/static/build/`,
+    publicPath: `${publicHost}/static/`,
     public: `${publicHost}`
   },
   module: {
@@ -62,11 +83,22 @@ module.exports = {
       },
       { 
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader!less-loader' }) 
+        use: [MiniCssExtractPlugin.loader,'css-loader!less-loader' ] ,
       },
-      { 
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }) 
+      {
+        test: /\.css$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: debug,
+            },
+          },
+          'css-loader',
+          {
+            loader: 'postcss-loader'
+          }
+        ],
       },
       { 
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -92,15 +124,19 @@ module.exports = {
     ],
   },
   plugins: [
-    new ExtractTextPlugin('[name].[hash].css'),
+    new IgnoreEmitPlugin(/(?<=main_css\s*).*?(?=\s*js)/gs),
+    new MiniCssExtractPlugin({ filename: 'css/[name].' + hashType + '.css', }),
     new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
-    new ManifestRevisionPlugin(path.join(__dirname, 'fm_frontend', 'webpack', 'manifest.json'), {
-      rootAssetPath: rootAssetPath,
-      // explicity include img/* assets
-      extensionsRegex: /(\/img\/)/i,
-      ignorePaths: ['/js', '/css'],
-    }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new ManifestPlugin(
+      {
+          map: (file) => {
+          // Remove hash in manifest key
+          file.name = file.name.replace(/(\.[a-f0-9]{32})(\..*)$/, '$2');
+          return file;
+          },
+          writeToFileEmit: true,
+      }),
   ].concat(debug ? [] : [
     // production webpack plugins go here
     new webpack.DefinePlugin({
@@ -108,5 +144,6 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       }
     }),
+    new CleanWebpackPlugin(),
   ]),
 };

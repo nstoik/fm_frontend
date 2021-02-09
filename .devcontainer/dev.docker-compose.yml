@@ -1,0 +1,31 @@
+version: '3.8'
+
+services: 
+  fm_frontend:
+    image: nstoik/fm_frontend:dev
+    container_name: fm_frontend
+    build:
+      context: .
+      dockerfile: .devcontainer/dev.Dockerfile
+    ports: 
+      - 5000:5000/tcp
+      - 2992:2992/tcp
+    networks:
+      - farm_monitor
+
+    volumes:
+      # this is for vs code file editing inside the container
+      - .:/workspaces/fm_frontend:cached
+      # this is for bash command history. https://code.visualstudio.com/docs/remote/containers-advanced#_persist-bash-history-between-runs
+      - bashhistory:/commandhistory
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
+  # override container name for database when developing
+  
+volumes:
+  bashhistory:
+
+networks:
+  farm_monitor:
+    external: true

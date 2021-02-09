@@ -11,3 +11,7 @@ def create_fm_frontend(info):
 @click.group(cls=FlaskGroup, create_app=create_fm_frontend)
 def cli():
     """Main entry point."""
+
+
+if __name__ == "__main__":
+    cli()
