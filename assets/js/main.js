@@ -12,11 +12,14 @@ require('bootstrap');
 require('malihu-custom-scrollbar-plugin');
 
 require.context(
-    '../img', // context folder
-    true, // include subdirectories
-    /.*/, // RegExp
-  );
+  '../img', // context folder
+  true, // include subdirectories
+  /.*/, // RegExp
+);
 
 // Your own code
 require('./plugins.js');
 require('./script.js');
+
+// expose jQuery object as a global variable
+window.$ = jQuery;
