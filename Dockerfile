@@ -10,7 +10,7 @@ RUN npm run-script build
 #
 #
 # Add the pyton parts
-FROM python:3.8-buster
+FROM python:3.9-buster
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG C.UTF-8

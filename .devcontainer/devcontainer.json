@@ -2,7 +2,6 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/master/containers/python-3
 {
 	"name": "FM FRONTEND",
-	"context": "..",
 
 	 // The order of the files is important since later files override previous ones
 	 "dockerComposeFile": [
@@ -22,12 +21,20 @@
 	//"runArgs": [ "-u", "fm" ],
 
 	"extensions": [
-		"ms-python.python"
+		"ms-python.python",
+		"eamodio.gitlens",
+		"ms-python.vscode-pylance",
 	],
 	"settings": {
-		//"python.pythonPath": "/usr/local/bin/python",
+		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
-		//"python.linting.pylintPath": "/usr/local/bin/pylint",
-		"python.linting.enabled": true
-	}
+		"python.linting.pylintArgs": [
+			"--load-plugins",
+			"pylint-flask,pylint-flask-sqlalchemy",
+		],
+		"python.linting.flake8Enabled": true,
+		"python.linting.mypyEnabled": true,
+		"python.formatting.provider": "black"
+		
+	},
 }
