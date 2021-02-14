@@ -5,17 +5,18 @@
  */
 
 // JavaScript modules
-require('jquery');
+require('@fortawesome/fontawesome-free');
+const jQuery = require('jquery');
 require('popper.js');
 require('bootstrap');
 require('malihu-custom-scrollbar-plugin');
 
+require.context(
+    '../img', // context folder
+    true, // include subdirectories
+    /.*/, // RegExp
+  );
+
 // Your own code
 require('./plugins.js');
 require('./script.js');
-
-import '@fortawesome/fontawesome-free/js/fontawesome'
-import '@fortawesome/fontawesome-free/js/solid'
-import '@fortawesome/fontawesome-free/js/regular'
-import '@fortawesome/fontawesome-free/js/brands'
-
