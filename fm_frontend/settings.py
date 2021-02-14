@@ -43,3 +43,25 @@ class TestConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     WTF_CSRF_ENABLED = False  # Allows form testing
+
+
+def get_config(override_default=None):
+    """Return the Config option based on environment variables.
+
+    If override_default is passed, that configuration is used instead.
+    If there is no match or nothing set then the environment defaults to 'dev'.
+    """
+
+    if override_default is None:
+        environment = os.environ.get("FM_FRONTEND_CONFIG", default="dev")
+    else:
+        environment = override_default
+
+    if environment == "dev":
+        return DevConfig
+    if environment == "prod":
+        return ProdConfig
+    if environment == "test":
+        return TestConfig
+
+    return DevConfig
