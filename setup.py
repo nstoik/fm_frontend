@@ -12,7 +12,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'fm_frontend = fm_frontend.manage:cli'
+            'fm_frontend = fm_frontend.cli.cli:entry_point'
         ]
     }
 )
