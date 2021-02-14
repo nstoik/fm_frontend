@@ -58,3 +58,6 @@ env/
 # webpack-built files
 /fm_frontend/static/build/
 /fm_frontend/webpack/manifest.json
+
+# Configuration
+.env
