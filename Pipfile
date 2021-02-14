@@ -6,19 +6,32 @@ name = "pypi"
 [dev-packages]
 # testing packages
 pytest = "*"
+pytest-cov = "*"
 pytest-flask = "*"
 pytest-runner = "*"
 pytest-factoryboy = "*"
 WebTest = "*"
 factory-boy = "*"
-isort = "*"
 
-# dev packages
+# Lint and code style
+black = "==20.8b1"
+flake8 = "*"
+flake8-blind-except = "*"
+flake8-debugger = "*"
+flake8-docstrings = "*"
+flake8-isort = "*"
+isort = "*"
+mypy = "*"
+pep8-naming = "*"
 pylint = "*"
+
+# self
 e1839a8 = {path = ".",editable = true}
 
 [packages]
-alembic = "*"
+# Flask Static Digest
+Flask-Static-Digest = "~=0.2.1"
+
 email-validator = "*"
 Flask = "~=1.1"
 Flask-Caching = "~=1.9"
@@ -32,11 +45,8 @@ Flask-SQLAlchemy = "~=2.4.0"
 Flask-WTF = "~=0.14.2"
 WTForms = "~=2.3.1"
 Flask-Login = "~=0.5.0"
-Flask-Manage-Webpack = "*"
 fm_database = {git = "https://github.com/nstoik/fm_database",editable = true}
 python-dotenv = "~=0.14"
-# for Postgresql
-psycopg2 = "~=2.8"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
