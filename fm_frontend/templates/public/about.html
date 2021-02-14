@@ -1,6 +1,12 @@
 
 {% extends "layout.html" %}
 
+{% block css %}
+
+<link rel="stylesheet" href="{{ static_url_for('static', filename='build/app.bundle.css') }}"/>
+
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <h1>About</h1>
@@ -14,6 +20,6 @@
 
 {% block js %}
 
-<script id="app" src="{{ webpack_url_for('app.js') }}"></script>
+<script id="app" src="{{ static_url_for('static', filename='build/app.bundle.js') }}"></script>
 
 {% endblock %}

@@ -1,62 +1,66 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="{% block meta_description %}{% endblock %}">
-    <meta name="author" content="{% block meta_author %}{% endblock %}">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="{% block meta_description %}{% endblock %}"/>
+        <meta name="author" content="{% block meta_author %}{% endblock %}"/>
 
-    <title>
-        {% block page_title %}
-            fm_frontend
-        {% endblock %}
-    </title>
+        <link rel="shortcut icon" href="{{ static_url_for('static', filename='build/img/favicon.ico') }}"/>
+        <title>
+            {% block page_title %}
+                fm_frontend
+            {% endblock %}
+        </title>
 
-    <link rel="stylesheet" href="{{ webpack_url_for('main_css.css') }}">
+        <link rel="stylesheet" href="{{ static_url_for('static', filename='build/main_css.bundle.css') }}"/>
+        <link rel="stylesheet" href="{{ static_url_for('static', filename='build/vendor_css.bundle.css') }}"/>
 
-    <link rel="shortcut icon" href="{{ webpack_url_for('img/favicon.ico') }}"
-    
-</head>
+        {% block css %}{% endblock css %}
+        
+    </head>
 
-<body class="{% block body_class %}{% endblock %}">
-{% block body %}
-    <div class="wrapper">
-        {% with form=form  %}
-        {% include "nav.html" %}
-        {% endwith %}
-        <div id="content">
-            <!-- Page Content  -->
-            <header>{% block header %}{% endblock %}</header>
-            <div class="{% block content_class %}container-fluid{% endblock content_class %}">
-                <div role="main">
-                    {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                        <div class="row">
-                        <div class="col-md-12">
-                            {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}">
-                            <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-                            {{message}}
-                            </div><!-- end .alert -->
-                            {% endfor %}
-                        </div><!-- end col-md -->
-                        </div><!-- end row -->
-                        {% endif %}
-                    {% endwith %}
-                
-                    {% block content %}{% endblock %}
-                </div>
-            </div><!-- end container -->
-            {% include "footer.html" %}
+    <body class="{% block body_class %}{% endblock %}">
+    {% block body %}
+        <div class="wrapper">
+            {% with form=form  %}
+            {% include "nav.html" %}
+            {% endwith %}
+            <div id="content">
+                <!-- Page Content  -->
+                <header>{% block header %}{% endblock %}</header>
+                <div class="{% block content_class %}container-fluid{% endblock content_class %}">
+                    <div role="main">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            <div class="row">
+                            <div class="col-md-12">
+                                {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+                                {{message}}
+                                </div><!-- end .alert -->
+                                {% endfor %}
+                            </div><!-- end col-md -->
+                            </div><!-- end row -->
+                            {% endif %}
+                        {% endwith %}
+                    
+                        {% block content %}{% endblock %}
+                    </div>
+                </div><!-- end container -->
+                {% include "footer.html" %}
+            </div>
         </div>
-    </div>
 
-    <!-- JavaScript at the bottom for fast page loading -->
-    <script id="main_js" src="{{ webpack_url_for('main_js.js') }}"></script>
-    {% block js %}{% endblock %}
-    <!-- end scripts -->
+        <!-- JavaScript at the bottom for fast page loading -->
+        <script id="main_js" src="{{ static_url_for('static', filename='build/main_js.bundle.js') }}"></script>
+        <script id="main_css" src="{{ static_url_for('static', filename='build/main_css.bundle.js') }}"></script>
+        <script id="vendor_css" src="{{ static_url_for('static', filename='build/vendor_css.bundle.js') }}"></script>
+        {% block js %}{% endblock %}
+        <!-- end scripts -->
 
-    {% endblock %}<!-- end body block -->
-</body>
+        {% endblock %}<!-- end body block -->
+    </body>
 </html>
