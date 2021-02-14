@@ -20,15 +20,14 @@ class UserSchema(ma.SQLAlchemySchema):
 
 
 class RoleSchema(ma.SQLAlchemySchema):
-
     class Meta:
         model = Role
         sqla_session = db.session
 
 
 class UserResource(Resource):
-    """Single object resource
-    """
+    """Single object resource"""
+
     method_decorators = [jwt_required]
 
     def get(self, user_id):
@@ -56,8 +55,8 @@ class UserResource(Resource):
 
 
 class UserList(Resource):
-    """Creation and get_all
-    """
+    """Creation and get_all"""
+
     method_decorators = [jwt_required]
 
     def get(self):
@@ -78,8 +77,8 @@ class UserList(Resource):
 
 
 class RoleResource(Resource):
-    """Single object resource
-    """
+    """Single object resource"""
+
     method_decorators = [jwt_required]
 
     def get(self, role_id):
@@ -107,8 +106,8 @@ class RoleResource(Resource):
 
 
 class RoleList(Resource):
-    """Creation and get_all
-    """
+    """Creation and get_all"""
+
     method_decorators = [jwt_required]
 
     def get(self):

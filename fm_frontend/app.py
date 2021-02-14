@@ -22,8 +22,8 @@ def create_app(config=None, testing=False):
 
     :param config_object: The configuration object to use.
     """
-    app = Flask(__name__.split('.')[0])
-    
+    app = Flask(__name__.split(".")[0])
+
     configure_app(app, config, testing)
     register_extensions(app)
     register_blueprints(app)
@@ -41,14 +41,14 @@ def configure_app(app, config=None, testing=False):
         return
 
     # default configuration
-    app.config.from_object('fm_frontend.settings.DevConfig')
+    app.config.from_object("fm_frontend.settings.DevConfig")
 
     if testing is True:
         # override with testing config
-        app.config.from_object('fm_frontend.settings.TestConfig')
-    elif get_env() == 'production':
+        app.config.from_object("fm_frontend.settings.TestConfig")
+    elif get_env() == "production":
         # override with production config
-        app.config.from_object('fm_frontend.settings.ProdConfig')
+        app.config.from_object("fm_frontend.settings.ProdConfig")
 
 
 def register_extensions(app):
@@ -82,11 +82,13 @@ def register_blueprints(app):
 
 def register_errorhandlers(app):
     """Register error handlers."""
+
     def render_error(error):
         """Render error template."""
         # If a HTTPException, pull the `code` attribute; default to 500
-        error_code = getattr(error, 'code', 500)
-        return render_template('{0}.html'.format(error_code), error=error), error_code
+        error_code = getattr(error, "code", 500)
+        return render_template("{0}.html".format(error_code), error=error), error_code
+
     for errcode in [400, 401, 404, 500]:
         app.errorhandler(errcode)(render_error)
     return None
@@ -94,10 +96,9 @@ def register_errorhandlers(app):
 
 def register_shellcontext(app):
     """Register shell context objects."""
+
     def shell_context():
         """Shell context objects."""
-        return {
-            'db': db,
-            'User': User}
+        return {"db": db, "User": User}
 
     app.shell_context_processor(shell_context)

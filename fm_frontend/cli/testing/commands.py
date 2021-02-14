@@ -56,8 +56,13 @@ def test(coverage, filename, function):
 
 
 @click.command()
-@click.option('-f', '--fix-imports', default=True, is_flag=True,
-              help='Fix imports using isort, before linting')
+@click.option(
+    "-f",
+    "--fix-imports",
+    default=True,
+    is_flag=True,
+    help="Fix imports using isort, before linting",
+)
 @click.option(
     "-c",
     "--check",
@@ -71,14 +76,16 @@ def lint(fix_imports, check):
         "requirements",
         "migrations",
         "__pycache__",
-        'node_modules',
+        "node_modules",
         "build",
     ]
-    root_files = glob('*.py')
+    root_files = glob("*.py")
     root_directories = [
-        name for name in next(os.walk('.'))[1] if not name.startswith('.')]
+        name for name in next(os.walk("."))[1] if not name.startswith(".")
+    ]
     files_and_directories = [
-        arg for arg in root_files + root_directories if arg not in skip]
+        arg for arg in root_files + root_directories if arg not in skip
+    ]
 
     def execute_tool(description, *args):
         """Execute a checking tool with its arguments."""
