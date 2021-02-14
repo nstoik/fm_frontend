@@ -6,11 +6,11 @@ from flask_cors import CORS
 
 from fm_database.models.user import User
 
-from fm_frontend import api, auth, commands, public, user
-from fm_frontend.extensions import cache, csrf_protect, db, debug_toolbar, login_manager, jwt, flask_manage_webpack
+from fm_frontend import api, auth, public, user
+from fm_frontend.extensions import cache, csrf_protect, db, debug_toolbar, login_manager, jwt, flask_static_digest
 
 
-def create_app(config=None, testing=False, cli=False):
+def create_app(config=None, testing=False):
     """An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
 
     :param config_object: The configuration object to use.
@@ -18,12 +18,10 @@ def create_app(config=None, testing=False, cli=False):
     app = Flask(__name__.split('.')[0])
     
     configure_app(app, config, testing)
-    register_extensions(app, cli)
+    register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
-    if cli:
-        register_shellcontext(app)
-        register_commands(app)
+    register_shellcontext(app)
 
     return app
 
@@ -46,7 +44,7 @@ def configure_app(app, config=None, testing=False):
         app.config.from_object('fm_frontend.settings.ProdConfig')
 
 
-def register_extensions(app, cli):
+def register_extensions(app):
     """Register Flask extensions."""
     cache.init_app(app)
     db.init_app(app)
@@ -54,7 +52,7 @@ def register_extensions(app, cli):
     login_manager.init_app(app)
     debug_toolbar.init_app(app)
     jwt.init_app(app)
-    flask_manage_webpack.init_app(app)
+    flask_static_digest.init_app(app)
 
     return None
 
@@ -96,12 +94,3 @@ def register_shellcontext(app):
             'User': User}
 
     app.shell_context_processor(shell_context)
-
-
-def register_commands(app):
-    """Register Click commands."""
-    app.cli.add_command(commands.test)
-    app.cli.add_command(commands.lint)
-    app.cli.add_command(commands.clean)
-    app.cli.add_command(commands.urls)
-    app.cli.add_command(commands.init)
