@@ -1,7 +1,6 @@
 import factory
-from pytest_factoryboy import register
-
 from fm_database.models.user import User
+from pytest_factoryboy import register
 
 
 @register

@@ -2,10 +2,10 @@
 """Defines fixtures available to all tests."""
 
 import json
-import pytest
-from webtest import TestApp
 
+import pytest
 from fm_database.models.user import User
+from webtest import TestApp
 
 from fm_frontend.app import create_app
 from fm_frontend.extensions import db as _db

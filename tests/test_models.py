@@ -3,9 +3,8 @@
 import datetime as dt
 
 import pytest
-
-from fm_database.models.user import Role, User
 from fm_database.base import get_session
+from fm_database.models.user import Role, User
 
 from .factories import UserFactory
 

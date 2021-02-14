@@ -1,13 +1,12 @@
 from flask import request
-from flask_restful import Resource
 from flask_jwt_extended import jwt_required
-from marshmallow.exceptions import ValidationError
+from flask_restful import Resource
+from fm_database.models.user import Role, User
 from marshmallow import fields
+from marshmallow.exceptions import ValidationError
 
-from fm_database.models.user import User, Role
-
-from fm_frontend.extensions import ma, db
 from fm_frontend.commons.pagination import paginate
+from fm_frontend.extensions import db, ma
 
 
 class UserSchema(ma.SQLAlchemySchema):

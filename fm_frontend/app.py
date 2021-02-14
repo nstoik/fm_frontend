@@ -3,11 +3,18 @@
 from flask import Flask, render_template
 from flask.helpers import get_env
 from flask_cors import CORS
-
 from fm_database.models.user import User
 
 from fm_frontend import api, auth, public, user
-from fm_frontend.extensions import cache, csrf_protect, db, debug_toolbar, login_manager, jwt, flask_static_digest
+from fm_frontend.extensions import (
+    cache,
+    csrf_protect,
+    db,
+    debug_toolbar,
+    flask_static_digest,
+    jwt,
+    login_manager,
+)
 
 
 def create_app(config=None, testing=False):

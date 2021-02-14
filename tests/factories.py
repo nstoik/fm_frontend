@@ -2,7 +2,6 @@
 """Factories to help in tests."""
 from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
-
 from fm_database.models.user import User
 
 from fm_frontend.extensions import db

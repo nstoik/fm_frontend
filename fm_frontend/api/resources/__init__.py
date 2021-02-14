@@ -1,5 +1,4 @@
-from .user import UserResource, UserList, RoleResource, RoleList
-
+from .user import RoleList, RoleResource, UserList, UserResource
 
 __all__ = [
     'UserResource',

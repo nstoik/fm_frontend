@@ -1,15 +1,13 @@
-from flask import request, jsonify, Blueprint
+from flask import Blueprint, jsonify, request
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
+    get_jwt_identity,
     jwt_refresh_token_required,
-    get_jwt_identity
 )
-
 from fm_database.models.user import User
 
-from fm_frontend.extensions import pwd_context, jwt
-
+from fm_frontend.extensions import jwt, pwd_context
 
 blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
