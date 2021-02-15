@@ -2,14 +2,14 @@
 from fm_database.models.user import User
 
 
-def test_get_user(client, db, user, admin_headers):
+def test_get_user(client, dbsession, user, admin_headers):
     """Test GET User."""
     # test 404
     rep = client.get("/api/v1/users/100000", headers=admin_headers)
     assert rep.status_code == 404
 
-    db.session.add(user)
-    db.session.commit()
+    dbsession.add(user)
+    dbsession.commit()
 
     # test get_user
     rep = client.get("/api/v1/users/%d" % user.id, headers=admin_headers)
@@ -22,14 +22,14 @@ def test_get_user(client, db, user, admin_headers):
     assert data["active"] == user.active
 
 
-def test_put_user(client, db, user, admin_headers):
+def test_put_user(client, dbsession, user, admin_headers):
     """Test PUT User."""
     # test 404
     rep = client.put("/api/v1/users/100000", headers=admin_headers)
     assert rep.status_code == 404
 
-    db.session.add(user)
-    db.session.commit()
+    dbsession.add(user)
+    dbsession.commit()
 
     data = {"username": "updated"}
 
@@ -43,23 +43,23 @@ def test_put_user(client, db, user, admin_headers):
     assert data["active"] == user.active
 
 
-def test_delete_user(client, db, user, admin_headers):
+def test_delete_user(client, dbsession, user, admin_headers):
     """Test DELETE User."""
     # test 404
     rep = client.put("/api/v1/users/100000", headers=admin_headers)
     assert rep.status_code == 404
 
-    db.session.add(user)
-    db.session.commit()
+    dbsession.add(user)
+    dbsession.commit()
 
     # test get_user
     user_id = user.id
     rep = client.delete("/api/v1/users/%d" % user_id, headers=admin_headers)
     assert rep.status_code == 200
-    assert db.session.query(User).filter_by(id=user_id).first() is None
+    assert dbsession.query(User).filter_by(id=user_id).first() is None
 
 
-def test_create_user(client, db, admin_headers):
+def test_create_user(client, dbsession, admin_headers):
     """Test POST User."""
     # test bad data
     data = {"username": "created"}
@@ -73,18 +73,18 @@ def test_create_user(client, db, admin_headers):
     assert rep.status_code == 201
 
     data = rep.get_json()
-    user = db.session.query(User).filter_by(id=data["user"]["id"]).first()
+    user = dbsession.query(User).filter_by(id=data["user"]["id"]).first()
 
     assert user.username == "created"
     assert user.email == "create@mail.com"
 
 
-def test_get_all_user(client, db, user_factory, admin_headers):
+def test_get_all_user(client, dbsession, user_factory, admin_headers):
     """Test GET all Users."""
     users = user_factory.create_batch(30)
 
-    db.session.add_all(users)
-    db.session.commit()
+    dbsession.add_all(users)
+    dbsession.commit()
 
     rep = client.get("/api/v1/users", headers=admin_headers)
     assert rep.status_code == 200

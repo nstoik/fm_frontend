@@ -13,9 +13,6 @@ class Config:
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    MANAGE_WEBPACK_MANIFEST_PATH = os.path.abspath(
-        os.path.join(APP_DIR, "static", "manifest.json")
-    )
 
 
 class ProdConfig(Config):
@@ -23,7 +20,6 @@ class ProdConfig(Config):
 
     ENV = "prod"
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = "postgresql://fm:farm_monitor@db/farm_monitor.db"
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
 
 
@@ -32,8 +28,6 @@ class DevConfig(Config):
 
     ENV = "dev"
     DEBUG = True
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:////workspaces/fm_frontend/fm_database.db'
-    SQLALCHEMY_DATABASE_URI = "postgresql://fm:farm_monitor@db/farm_monitor.db"
     DEBUG_TB_ENABLED = True
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
 
@@ -43,7 +37,6 @@ class TestConfig(Config):
 
     TESTING = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     WTF_CSRF_ENABLED = False  # Allows form testing
 
 

@@ -2,11 +2,12 @@
 from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
+from fm_database.base import get_session
 from fm_database.models.user import Role, User
 from marshmallow.exceptions import ValidationError
 
 from fm_frontend.commons.pagination import paginate
-from fm_frontend.extensions import db, ma
+from fm_frontend.extensions import ma
 
 
 class UserSchema(
@@ -21,7 +22,7 @@ class UserSchema(
 
         # exclude = ["password",]
         model = User
-        sqla_session = db.session
+        sqla_session = get_session()
 
 
 class RoleSchema(
@@ -33,7 +34,7 @@ class RoleSchema(
         """Meta configuration for RoleSchema."""
 
         model = Role
-        sqla_session = db.session
+        sqla_session = get_session()
 
 
 class UserResource(Resource):
@@ -58,7 +59,7 @@ class UserResource(Resource):
         except ValidationError as err:
             return err.normalized_messages(), 422
 
-        user.save(db.session)
+        user.save(get_session())
 
         return {"msg": "user updated", "user": schema.dump(user)}
 
@@ -66,7 +67,7 @@ class UserResource(Resource):
     def delete(user_id):
         """Delete User."""
         user = User.query.get_or_404(user_id)
-        user.delete(db.session)
+        user.delete(get_session())
 
         return {"msg": "user deleted"}
 
@@ -92,7 +93,7 @@ class UserList(Resource):
         except ValidationError as err:
             return err.normalized_messages(), 422
 
-        user.save(db.session)
+        user.save(get_session())
 
         return {"msg": "user created", "user": schema.dump(user)}, 201
 
@@ -119,7 +120,7 @@ class RoleResource(Resource):
         except ValidationError as err:
             return err.normalized_messages(), 422
 
-        role.save(db.session)
+        role.save(get_session())
 
         return {"msg": "role updated", "role": schema.dump(role)}
 
@@ -127,7 +128,7 @@ class RoleResource(Resource):
     def delete(role_id):
         """Delete the Role object."""
         role = Role.query.get_or_404(role_id)
-        role.delete(db.session)
+        role.delete(get_session())
 
         return {"msg": "role deleted"}
 
@@ -153,6 +154,6 @@ class RoleList(Resource):
         except ValidationError as err:
             return err.normalized_messages(), 422
 
-        role.save(db.session)
+        role.save(get_session())
 
         return {"msg": "role created", "role": schema.dump(role)}, 201

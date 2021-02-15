@@ -4,14 +4,56 @@
 import json
 
 import pytest
+from _pytest.monkeypatch import MonkeyPatch
+from fm_database.base import create_all_tables, drop_all_tables, get_session
 from fm_database.models.user import User
 from webtest import TestApp
 
 from fm_frontend.app import create_app
-from fm_frontend.extensions import db as _db
 from fm_frontend.settings import TestConfig
 
 from .factories import UserFactory
+
+
+@pytest.fixture(scope="session")
+# pylint: disable=unused-argument
+def monkeysession(request):
+    """Create a MonkeyPatch object that can be scoped to a session.
+
+    https://github.com/pytest-dev/pytest/issues/363#issuecomment-289830794
+    """
+    mpatch = MonkeyPatch()
+    yield mpatch
+    mpatch.undo()
+
+
+@pytest.fixture(scope="session", autouse=True)
+# pylint: disable=unused-argument
+def set_testing_env(monkeysession, database_env):
+    """Set the environment variable for testing.
+
+    This executes once for the entire session of testing.
+    The environment variables are set back to the default after.
+    Makes sure that the database env is also called and set.
+    """
+    monkeysession.setenv("FM_FRONTEND_CONFIG", "test")
+    yield
+    monkeysession.setenv("FM_FRONTEND_CONFIG", "dev")
+
+
+@pytest.fixture(scope="session")
+def database_env(monkeysession):
+    """Set the fm_database env variable for testing and set back when done.."""
+    monkeysession.setenv("FM_DATABASE_CONFIG", "test")
+    yield
+    monkeysession.setenv("FM_DATABASE_CONFIG", "dev")
+
+
+@pytest.fixture(scope="session")
+def dbsession():
+    """Returns an sqlalchemy session."""
+
+    yield get_session()
 
 
 @pytest.fixture
@@ -33,34 +75,29 @@ def testapp(app):
 
 
 @pytest.fixture
-def db(app):
-    """A database for the tests."""
-    _db.app = app
-    with app.app_context():
-        _db.create_all()
-
-    yield _db
-
-    # Explicitly close DB connection
-    _db.session.close()
-    _db.drop_all()
+def tables(dbsession):
+    """Create all tables for testing. Delete when done."""
+    create_all_tables()
+    yield
+    dbsession.close()
+    drop_all_tables()
 
 
 @pytest.fixture
-def user(db):
+def user(dbsession):
     """A user for the tests."""
-    user = UserFactory(password="myprecious")
-    db.session.commit()
+    user = UserFactory.create(session=dbsession, password="myprecious")
+    dbsession.commit()
     return user
 
 
 @pytest.fixture
-def admin_user(db):
+def admin_user(dbsession):
     """An admin user for the tests."""
     user = User(username="admin", email="admin@admin.com", password="admin")
 
-    db.session.add(user)
-    db.session.commit()
+    dbsession.add(user)
+    dbsession.commit()
 
     return user
 

@@ -5,17 +5,26 @@ from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 from fm_database.models.user import User
 
-from fm_frontend.extensions import db
-
 
 class BaseFactory(SQLAlchemyModelFactory):
     """Base factory."""
+
+    @classmethod
+    def create(cls, session, **kwargs):
+        """Override the create method of the SQLALchemyModelFactory class.
+
+        Adds the variable session so that the sqlalchemy_session can be
+        passed in and overwritten. The sqlalchemy_session is passed in this
+        way so that the new object can be properly saved in the correct session.
+        """
+        cls._meta.sqlalchemy_session = session
+        return super().create(**kwargs)
 
     class Meta:
         """Factory configuration."""
 
         abstract = True
-        sqlalchemy_session = db.session
+        sqlalchemy_session = None
 
 
 class UserFactory(BaseFactory):

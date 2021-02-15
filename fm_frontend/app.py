@@ -9,7 +9,6 @@ from fm_frontend import api, auth, public, user
 from fm_frontend.extensions import (
     cache,
     csrf_protect,
-    db,
     debug_toolbar,
     flask_static_digest,
     jwt,
@@ -54,7 +53,6 @@ def configure_app(app, config=None, testing=False):
 def register_extensions(app):
     """Register Flask extensions."""
     cache.init_app(app)
-    db.init_app(app)
     csrf_protect.init_app(app)
     login_manager.init_app(app)
     debug_toolbar.init_app(app)
@@ -94,6 +92,6 @@ def register_shellcontext(app):
 
     def shell_context():
         """Shell context objects."""
-        return {"db": db, "User": User}
+        return {"User": User}
 
     app.shell_context_processor(shell_context)

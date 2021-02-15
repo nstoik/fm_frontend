@@ -8,39 +8,39 @@ from fm_database.models.user import Role, User
 from .factories import UserFactory
 
 
-@pytest.mark.usefixtures("db")
+@pytest.mark.usefixtures("dbsession")
 class TestUser:
     """User tests."""
 
     @staticmethod
-    def test_get_by_id(db):
+    def test_get_by_id(dbsession):
         """Get user by ID."""
         user = User("foo", "foo@bar.com")
-        user.save(db.session)
+        user.save(dbsession)
 
         retrieved = User.get_by_id(user.id)
         assert retrieved == user
 
     @staticmethod
-    def test_created_at_defaults_to_datetime(db):
+    def test_created_at_defaults_to_datetime(dbsession):
         """Test creation date."""
         user = User(username="foo", email="foo@bar.com")
-        user.save(db.session)
+        user.save(dbsession)
         assert bool(user.created_at)
         assert isinstance(user.created_at, dt.datetime)
 
     @staticmethod
-    def test_password_is_nullable(db):
+    def test_password_is_nullable(dbsession):
         """Test null password."""
         user = User(username="foo", email="foo@bar.com")
-        user.save(db.session)
+        user.save(dbsession)
         assert user.password is None
 
     @staticmethod
-    def test_factory(db):
+    def test_factory(dbsession):
         """Test user factory."""
         user = UserFactory(password="myprecious")
-        db.session.commit()
+        dbsession.commit()
         assert bool(user.username)
         assert bool(user.email)
         assert bool(user.created_at)
@@ -49,13 +49,13 @@ class TestUser:
         assert user.check_password("myprecious")
 
     @staticmethod
-    def test_check_password(db):
+    def test_check_password(dbsession):
         """Check password."""
         user = User.create(
             username="foo",
             email="foo@bar.com",
             password="foobarbaz123",
-            session=db.session,
+            session=dbsession,
         )
         assert user.check_password("foobarbaz123") is True
         assert user.check_password("barfoobaz") is False
@@ -67,11 +67,11 @@ class TestUser:
         assert user.full_name == "Foo Bar"
 
     @staticmethod
-    def test_roles(db):
+    def test_roles(dbsession):
         """Add a role to a user."""
         role = Role(name="admin")
-        role.save(db.session)
+        role.save(dbsession)
         user = UserFactory()
         user.roles.append(role)
-        user.save(db.session)
+        user.save(dbsession)
         assert role in user.roles

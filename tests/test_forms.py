@@ -33,7 +33,7 @@ class TestRegisterForm:
         assert "Email already registered" in form.email.errors
 
     @staticmethod
-    def test_validate_success(db):
+    def test_validate_success(dbsession):
         """Register with success."""
         form = RegisterForm(
             username="newusername",
@@ -48,16 +48,16 @@ class TestLoginForm:
     """Login form."""
 
     @staticmethod
-    def test_validate_success(user, db):
+    def test_validate_success(user, dbsession):
         """Login successful."""
         user.set_password("example")
-        user.save(db.session)
+        user.save(dbsession)
         form = LoginForm(username=user.username, password="example")
         assert form.validate() is True
         assert form.user == user
 
     @staticmethod
-    def test_validate_unknown_username(db):
+    def test_validate_unknown_username(dbsession):
         """Unknown username."""
         form = LoginForm(username="unknown", password="example")
         assert form.validate() is False
@@ -65,20 +65,20 @@ class TestLoginForm:
         assert form.user is None
 
     @staticmethod
-    def test_validate_invalid_password(user, db):
+    def test_validate_invalid_password(user, dbsession):
         """Invalid password."""
         user.set_password("example")
-        user.save(db.session)
+        user.save(dbsession)
         form = LoginForm(username=user.username, password="wrongpassword")
         assert form.validate() is False
         assert "Invalid password" in form.password.errors
 
     @staticmethod
-    def test_validate_inactive_user(user, db):
+    def test_validate_inactive_user(user, dbsession):
         """Inactive user."""
         user.active = False
         user.set_password("example")
-        user.save(db.session)
+        user.save(dbsession)
         # Correct username and password, but user is not activated
         form = LoginForm(username=user.username, password="example")
         assert form.validate() is False
