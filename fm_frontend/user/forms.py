@@ -24,13 +24,15 @@ class RegisterForm(FlaskForm):
     )
 
     def __init__(self, *args, **kwargs):
-        """Create instance."""
-        super(RegisterForm, self).__init__(*args, **kwargs)
+        """Create instance of RegisterForm."""
+
+        super().__init__(*args, **kwargs)
         self.user = None
 
     def validate(self):
-        """Validate the form."""
-        initial_validation = super(RegisterForm, self).validate()
+        """Validate the Register form."""
+
+        initial_validation = super().validate()
         if not initial_validation:
             return False
         user = User.query.filter_by(username=self.username.data).first()

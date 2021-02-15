@@ -2,7 +2,7 @@
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
 from flask.helpers import get_env
-from flask_cors import CORS
+from flask_cors import CORS  # type: ignore
 from fm_database.models.user import User
 
 from fm_frontend import api, auth, public, user
@@ -61,8 +61,6 @@ def register_extensions(app):
     jwt.init_app(app)
     flask_static_digest.init_app(app)
 
-    return None
-
 
 def register_blueprints(app):
     """Register Flask blueprints."""
@@ -77,8 +75,6 @@ def register_blueprints(app):
     app.register_blueprint(auth.views.blueprint)
     app.register_blueprint(api.views.blueprint)
 
-    return None
-
 
 def register_errorhandlers(app):
     """Register error handlers."""
@@ -91,7 +87,6 @@ def register_errorhandlers(app):
 
     for errcode in [400, 401, 404, 500]:
         app.errorhandler(errcode)(render_error)
-    return None
 
 
 def register_shellcontext(app):

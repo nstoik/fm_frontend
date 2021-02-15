@@ -29,8 +29,7 @@ def home():
             flash("You are logged in.", "success")
             redirect_url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
-        else:
-            flash_errors(form)
+        flash_errors(form)
     return render_template("public/home.html", form=form)
 
 
@@ -58,8 +57,7 @@ def register():
         )
         flash("Thank you for registering. You can now log in.", "success")
         return redirect(url_for("public.home"))
-    else:
-        flash_errors(form)
+    flash_errors(form)
     return render_template("public/register.html", form=form)
 
 

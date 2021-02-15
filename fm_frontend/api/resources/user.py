@@ -9,12 +9,14 @@ from fm_frontend.commons.pagination import paginate
 from fm_frontend.extensions import db, ma
 
 
-class UserSchema(ma.SQLAlchemySchema):
+class UserSchema(
+    ma.SQLAlchemySchema
+):  # pylint: disable=too-many-ancestors,too-few-public-methods
     """Marshmallow UserSchema."""
 
     password = ma.String(load_only=True, required=True)
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """Meta configuration for UserSchema."""
 
         # exclude = ["password",]
@@ -22,10 +24,12 @@ class UserSchema(ma.SQLAlchemySchema):
         sqla_session = db.session
 
 
-class RoleSchema(ma.SQLAlchemySchema):
+class RoleSchema(
+    ma.SQLAlchemySchema
+):  # pylint: disable=too-many-ancestors,too-few-public-methods
     """Marshmallow RoleSchema."""
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """Meta configuration for RoleSchema."""
 
         model = Role
@@ -37,13 +41,15 @@ class UserResource(Resource):
 
     method_decorators = [jwt_required]
 
-    def get(self, user_id):
+    @staticmethod
+    def get(user_id):
         """Get User schema."""
         schema = UserSchema()
         user = User.query.get_or_404(user_id)
         return {"user": schema.dump(user)}
 
-    def put(self, user_id):
+    @staticmethod
+    def put(user_id):
         """Update User."""
         schema = UserSchema(partial=True)
         user = User.query.get_or_404(user_id)
@@ -56,7 +62,8 @@ class UserResource(Resource):
 
         return {"msg": "user updated", "user": schema.dump(user)}
 
-    def delete(self, user_id):
+    @staticmethod
+    def delete(user_id):
         """Delete User."""
         user = User.query.get_or_404(user_id)
         user.delete(db.session)
@@ -69,13 +76,15 @@ class UserList(Resource):
 
     method_decorators = [jwt_required]
 
-    def get(self):
+    @staticmethod
+    def get():
         """Get User List."""
         schema = UserSchema(many=True)
         query = User.query
         return paginate(query, schema)
 
-    def post(self):
+    @staticmethod
+    def post():
         """Create User."""
         schema = UserSchema()
         try:
@@ -93,13 +102,15 @@ class RoleResource(Resource):
 
     method_decorators = [jwt_required]
 
-    def get(self, role_id):
+    @staticmethod
+    def get(role_id):
         """Get the Role object."""
         schema = RoleSchema()
         role = Role.query.get_or_404(role_id)
         return {"role": schema.dump(role)}
 
-    def put(self, role_id):
+    @staticmethod
+    def put(role_id):
         """Update the Role object."""
         schema = RoleSchema(partial=True)
         role = Role.query.get_or_404(role_id)
@@ -112,7 +123,8 @@ class RoleResource(Resource):
 
         return {"msg": "role updated", "role": schema.dump(role)}
 
-    def delete(self, role_id):
+    @staticmethod
+    def delete(role_id):
         """Delete the Role object."""
         role = Role.query.get_or_404(role_id)
         role.delete(db.session)
@@ -125,13 +137,15 @@ class RoleList(Resource):
 
     method_decorators = [jwt_required]
 
-    def get(self):
+    @staticmethod
+    def get():
         """Get list of Role objects."""
         schema = RoleSchema(many=True)
         query = Role.query
         return paginate(query, schema)
 
-    def post(self):
+    @staticmethod
+    def post():
         """Create Role object."""
         schema = RoleSchema()
         try:

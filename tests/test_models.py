@@ -12,7 +12,8 @@ from .factories import UserFactory
 class TestUser:
     """User tests."""
 
-    def test_get_by_id(self, db):
+    @staticmethod
+    def test_get_by_id(db):
         """Get user by ID."""
         user = User("foo", "foo@bar.com")
         user.save(db.session)
@@ -20,20 +21,23 @@ class TestUser:
         retrieved = User.get_by_id(user.id)
         assert retrieved == user
 
-    def test_created_at_defaults_to_datetime(self, db):
+    @staticmethod
+    def test_created_at_defaults_to_datetime(db):
         """Test creation date."""
         user = User(username="foo", email="foo@bar.com")
         user.save(db.session)
         assert bool(user.created_at)
         assert isinstance(user.created_at, dt.datetime)
 
-    def test_password_is_nullable(self, db):
+    @staticmethod
+    def test_password_is_nullable(db):
         """Test null password."""
         user = User(username="foo", email="foo@bar.com")
         user.save(db.session)
         assert user.password is None
 
-    def test_factory(self, db):
+    @staticmethod
+    def test_factory(db):
         """Test user factory."""
         user = UserFactory(password="myprecious")
         db.session.commit()
@@ -44,7 +48,8 @@ class TestUser:
         assert user.active is True
         assert user.check_password("myprecious")
 
-    def test_check_password(self, db):
+    @staticmethod
+    def test_check_password(db):
         """Check password."""
         user = User.create(
             username="foo",
@@ -55,12 +60,14 @@ class TestUser:
         assert user.check_password("foobarbaz123") is True
         assert user.check_password("barfoobaz") is False
 
-    def test_full_name(self):
+    @staticmethod
+    def test_full_name():
         """User full name."""
         user = UserFactory(first_name="Foo", last_name="Bar")
         assert user.full_name == "Foo Bar"
 
-    def test_roles(self, db):
+    @staticmethod
+    def test_roles(db):
         """Add a role to a user."""
         role = Role(name="admin")
         role.save(db.session)

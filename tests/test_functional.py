@@ -3,6 +3,7 @@
 
 See: http://webtest.readthedocs.org/
 """
+# pylint: disable=unused-argument
 import pytest
 from flask import url_for
 from fm_database.models.user import User
@@ -13,7 +14,8 @@ from .factories import UserFactory
 class TestLoggingIn:
     """Login."""
 
-    def test_can_log_in_returns_200(self, user, testapp):
+    @staticmethod
+    def test_can_log_in_returns_200(user, testapp):
         """Login successful."""
         # Goes to homepage
         res = testapp.get("/")
@@ -25,7 +27,8 @@ class TestLoggingIn:
         res = form.submit().follow()
         assert res.status_code == 200
 
-    def test_sees_alert_on_log_out(self, user, testapp):
+    @staticmethod
+    def test_sees_alert_on_log_out(user, testapp):
         """Show alert on logout."""
         res = testapp.get("/")
         # Fills out login form in navbar
@@ -38,7 +41,8 @@ class TestLoggingIn:
         # sees alert
         assert "You are logged out." in res
 
-    def test_sees_error_message_if_password_is_incorrect(self, user, testapp):
+    @staticmethod
+    def test_sees_error_message_if_password_is_incorrect(user, testapp):
         """Show error if password is incorrect."""
         # Goes to homepage
         res = testapp.get("/")
@@ -51,7 +55,8 @@ class TestLoggingIn:
         # sees error
         assert "Invalid password" in res
 
-    def test_sees_error_message_if_username_doesnt_exist(self, user, testapp):
+    @staticmethod
+    def test_sees_error_message_if_username_doesnt_exist(user, testapp):
         """Show error if username doesn't exist."""
         # Goes to homepage
         res = testapp.get("/")
@@ -69,7 +74,8 @@ class TestLoggingIn:
 class TestRegistering:
     """Register a user."""
 
-    def test_can_register(self, user, testapp):
+    @staticmethod
+    def test_can_register(user, testapp):
         """Register a new user."""
         old_count = len(User.query.all())
         # Goes to homepage
@@ -88,7 +94,8 @@ class TestRegistering:
         # A new user was created
         assert len(User.query.all()) == old_count + 1
 
-    def test_sees_error_message_if_passwords_dont_match(self, user, testapp):
+    @staticmethod
+    def test_sees_error_message_if_passwords_dont_match(user, testapp):
         """Show error if passwords don't match."""
         # Goes to registration page
         res = testapp.get(url_for("public.register"))
@@ -103,7 +110,8 @@ class TestRegistering:
         # sees error message
         assert "Passwords must match" in res
 
-    def test_sees_error_message_if_user_already_registered(self, user, testapp):
+    @staticmethod
+    def test_sees_error_message_if_user_already_registered(user, testapp):
         """Show error if user already registered."""
         user = UserFactory(active=True)  # A registered user
         user.save()

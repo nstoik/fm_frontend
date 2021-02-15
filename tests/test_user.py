@@ -1,21 +1,5 @@
 """Tests for the user."""
-import factory
 from fm_database.models.user import User
-from pytest_factoryboy import register
-
-
-@register
-class UserFactory(factory.Factory):
-    """User factory."""
-
-    username = factory.Sequence(lambda n: "user%d" % n)
-    email = factory.Sequence(lambda n: "user%d@mail.com" % n)
-    password = "mypwd"
-
-    class Meta:
-        """Meta configuration for UserFactory."""
-
-        model = User
 
 
 def test_get_user(client, db, user, admin_headers):

@@ -13,7 +13,7 @@ def clean():
 
     Borrowed from Flask-Script, converted to use Click.
     """
-    for dirpath, dirnames, filenames in os.walk("."):
+    for dirpath, dirnames, filenames in os.walk("."):  # pylint: disable=unused-variable
         for filename in filenames:
             if filename.endswith(".pyc") or filename.endswith(".pyo"):
                 full_pathname = os.path.join(dirpath, filename)
@@ -43,8 +43,8 @@ def urls(url, order):
             )
             rows.append((rule.rule, rule.endpoint, arguments))
             column_length = 3
-        except (NotFound, MethodNotAllowed) as e:
-            rows.append(("<{}>".format(e), None, None))
+        except (NotFound, MethodNotAllowed) as error:
+            rows.append((f"<{error}>", None, None))
             column_length = 1
     else:
         rules = sorted(

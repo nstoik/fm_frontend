@@ -79,6 +79,7 @@ def lint(fix_imports, check):
         "node_modules",
         "build",
         "fm_frontend.egg-info",
+        "assets",
     ]
     root_files = glob("*.py")
     root_directories = [
@@ -94,7 +95,7 @@ def lint(fix_imports, check):
         click.echo(f"{description}: {' '.join(command_line)}")
         rv = call(command_line)
         if rv != 0:
-            exit(rv)
+            sys.exit(rv)
 
     isort_args = ["--profile", "black"]
     black_args = ["--diff"]

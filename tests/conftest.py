@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
 """Defines fixtures available to all tests."""
+# pylint: disable=redefined-outer-name
 
 import json
 

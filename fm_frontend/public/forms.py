@@ -14,12 +14,12 @@ class LoginForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
-        super(LoginForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.user = None
 
     def validate(self):
         """Validate the form."""
-        initial_validation = super(LoginForm, self).validate()
+        initial_validation = super().validate()
         if not initial_validation:
             return False
 
