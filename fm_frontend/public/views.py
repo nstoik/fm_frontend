@@ -4,10 +4,10 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
 from fm_database.models.user import User
 
+from fm_frontend.commons.flask_helper import flash_errors
 from fm_frontend.extensions import db, login_manager
 from fm_frontend.public.forms import LoginForm
 from fm_frontend.user.forms import RegisterForm
-from fm_frontend.utils import flash_errors
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
 

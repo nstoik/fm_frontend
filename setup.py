@@ -1,3 +1,4 @@
+"""Setup the application."""
 from setuptools import find_packages, setup
 
 __version__ = "0.1"

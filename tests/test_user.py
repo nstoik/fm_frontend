@@ -1,3 +1,4 @@
+"""Tests for the user."""
 import factory
 from fm_database.models.user import User
 from pytest_factoryboy import register
@@ -5,16 +6,20 @@ from pytest_factoryboy import register
 
 @register
 class UserFactory(factory.Factory):
+    """User factory."""
 
     username = factory.Sequence(lambda n: "user%d" % n)
     email = factory.Sequence(lambda n: "user%d@mail.com" % n)
     password = "mypwd"
 
     class Meta:
+        """Meta configuration for UserFactory."""
+
         model = User
 
 
 def test_get_user(client, db, user, admin_headers):
+    """Test GET User."""
     # test 404
     rep = client.get("/api/v1/users/100000", headers=admin_headers)
     assert rep.status_code == 404
@@ -34,6 +39,7 @@ def test_get_user(client, db, user, admin_headers):
 
 
 def test_put_user(client, db, user, admin_headers):
+    """Test PUT User."""
     # test 404
     rep = client.put("/api/v1/users/100000", headers=admin_headers)
     assert rep.status_code == 404
@@ -54,6 +60,7 @@ def test_put_user(client, db, user, admin_headers):
 
 
 def test_delete_user(client, db, user, admin_headers):
+    """Test DELETE User."""
     # test 404
     rep = client.put("/api/v1/users/100000", headers=admin_headers)
     assert rep.status_code == 404
@@ -69,6 +76,7 @@ def test_delete_user(client, db, user, admin_headers):
 
 
 def test_create_user(client, db, admin_headers):
+    """Test POST User."""
     # test bad data
     data = {"username": "created"}
     rep = client.post("/api/v1/users", json=data, headers=admin_headers)
@@ -88,6 +96,7 @@ def test_create_user(client, db, admin_headers):
 
 
 def test_get_all_user(client, db, user_factory, admin_headers):
+    """Test GET all Users."""
     users = user_factory.create_batch(30)
 
     db.session.add_all(users)

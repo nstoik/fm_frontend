@@ -1,6 +1,4 @@
-"""
-Simple helper to paginate query
-"""
+"""Simple helper to paginate query."""
 from flask import request, url_for
 
 DEFAULT_PAGE_SIZE = 50
@@ -8,6 +6,7 @@ DEFAULT_PAGE_NUMBER = 1
 
 
 def paginate(query, schema):
+    """Return all pagination details given a query, schema and request."""
     page = request.args.get("page", DEFAULT_PAGE_NUMBER)
     per_page = request.args.get("page_size", DEFAULT_PAGE_SIZE)
     page_obj = query.paginate(page=page, per_page=per_page)

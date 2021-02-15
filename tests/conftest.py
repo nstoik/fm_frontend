@@ -56,6 +56,7 @@ def user(db):
 
 @pytest.fixture
 def admin_user(db):
+    """An admin user for the tests."""
     user = User(username="admin", email="admin@admin.com", password="admin")
 
     db.session.add(user)
@@ -66,6 +67,7 @@ def admin_user(db):
 
 @pytest.fixture
 def admin_headers(admin_user, client):
+    """Log in the admin user and get the access_token."""
     data = {"username": admin_user.username, "password": "admin"}
     rep = client.post(
         "/auth/login",

@@ -1,1 +1,2 @@
-from . import views
+"""API definition."""
+from . import views  # noqa: F401

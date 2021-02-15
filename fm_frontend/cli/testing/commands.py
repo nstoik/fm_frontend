@@ -78,6 +78,7 @@ def lint(fix_imports, check):
         "__pycache__",
         "node_modules",
         "build",
+        "fm_frontend.egg-info",
     ]
     root_files = glob("*.py")
     root_directories = [

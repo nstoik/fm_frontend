@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Helper utilities and decorators."""
+"""Helper utilities and decorators for Flask."""
 from flask import flash
 
 

@@ -1,3 +1,4 @@
+"""Add all resources to the views."""
 from flask import Blueprint
 from flask_restful import Api
 
