@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "eac9e747ba1cf3e0618fc179ab9e6a542958faf4627a1f19faaa62276b1a74e7"
+            "sha256": "2d07c7fc226f935a3e2dafe1259062229a5beb3b61cdd697d40819a1b7e76ab7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -87,10 +87,11 @@
         },
         "flask-jwt-extended": {
             "hashes": [
-                "sha256:0aa8ee6fa7eb3be9314e39dd199ac8e19389a95371f9d54e155c7aa635e319dd"
+                "sha256:d42015246f61cf7baea474de0657542eb2c3d9b4322cbeac062a418297b265ac",
+                "sha256:e633ca9dcd73aab5d5de5e603e26767cbf0c94be1619bee04ff512ad3ce129d6"
             ],
             "index": "pypi",
-            "version": "==3.24.1"
+            "version": "==4.0.2"
         },
         "flask-login": {
             "hashes": [
@@ -134,7 +135,7 @@
         "fm-database": {
             "editable": true,
             "git": "https://github.com/nstoik/fm_database",
-            "ref": "ef6d80a125695234c05cd4f24212b331dcd5c702"
+            "ref": "844c71985dadd364586fe240c2f5edb15d45c2cc"
         },
         "idna": {
             "hashes": [
