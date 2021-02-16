@@ -4,7 +4,7 @@ from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
     get_jwt_identity,
-    jwt_refresh_token_required,
+    jwt_required,
 )
 from fm_database.models.user import User
 
@@ -36,7 +36,7 @@ def login():
 
 
 @blueprint.route("/refresh", methods=["POST"])
-@jwt_refresh_token_required
+@jwt_required(refresh=True)
 def refresh():
     """Return an updated access_token using a refresh_token."""
     current_user = get_jwt_identity()
@@ -44,7 +44,7 @@ def refresh():
     return jsonify(ret), 200
 
 
-@jwt.user_loader_callback_loader
+@jwt.user_lookup_loader
 def user_loader_callback(identity):
     """Load the user given an identity."""
     return User.query.get(identity)

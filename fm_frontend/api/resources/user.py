@@ -42,15 +42,13 @@ class UserResource(Resource):
 
     method_decorators = [jwt_required]
 
-    @staticmethod
-    def get(user_id):
+    def get(self, user_id):
         """Get User schema."""
         schema = UserSchema()
         user = User.query.get_or_404(user_id)
         return {"user": schema.dump(user)}
 
-    @staticmethod
-    def put(user_id):
+    def put(self, user_id):
         """Update User."""
         schema = UserSchema(partial=True)
         user = User.query.get_or_404(user_id)
@@ -63,8 +61,7 @@ class UserResource(Resource):
 
         return {"msg": "user updated", "user": schema.dump(user)}
 
-    @staticmethod
-    def delete(user_id):
+    def delete(self, user_id):
         """Delete User."""
         user = User.query.get_or_404(user_id)
         user.delete(get_session())
@@ -77,15 +74,13 @@ class UserList(Resource):
 
     method_decorators = [jwt_required]
 
-    @staticmethod
-    def get():
+    def get(self):
         """Get User List."""
         schema = UserSchema(many=True)
         query = User.query
         return paginate(query, schema)
 
-    @staticmethod
-    def post():
+    def post(self):
         """Create User."""
         schema = UserSchema()
         try:
@@ -103,15 +98,13 @@ class RoleResource(Resource):
 
     method_decorators = [jwt_required]
 
-    @staticmethod
-    def get(role_id):
+    def get(self, role_id):
         """Get the Role object."""
         schema = RoleSchema()
         role = Role.query.get_or_404(role_id)
         return {"role": schema.dump(role)}
 
-    @staticmethod
-    def put(role_id):
+    def put(self, role_id):
         """Update the Role object."""
         schema = RoleSchema(partial=True)
         role = Role.query.get_or_404(role_id)
@@ -124,8 +117,7 @@ class RoleResource(Resource):
 
         return {"msg": "role updated", "role": schema.dump(role)}
 
-    @staticmethod
-    def delete(role_id):
+    def delete(self, role_id):
         """Delete the Role object."""
         role = Role.query.get_or_404(role_id)
         role.delete(get_session())
@@ -138,15 +130,13 @@ class RoleList(Resource):
 
     method_decorators = [jwt_required]
 
-    @staticmethod
-    def get():
+    def get(self):
         """Get list of Role objects."""
         schema = RoleSchema(many=True)
         query = Role.query
         return paginate(query, schema)
 
-    @staticmethod
-    def post():
+    def post(self):
         """Create Role object."""
         schema = RoleSchema()
         try:

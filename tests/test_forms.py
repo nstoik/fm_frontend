@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """Test forms."""
 # pylint: disable=unused-argument
+import pytest
 
 from fm_frontend.public.forms import LoginForm
 from fm_frontend.user.forms import RegisterForm
 
-
+@pytest.mark.usefixtures("app")
 class TestRegisterForm:
     """Register form."""
 
@@ -33,7 +34,7 @@ class TestRegisterForm:
         assert "Email already registered" in form.email.errors
 
     @staticmethod
-    def test_validate_success(dbsession):
+    def test_validate_success(tables):
         """Register with success."""
         form = RegisterForm(
             username="newusername",
@@ -43,7 +44,7 @@ class TestRegisterForm:
         )
         assert form.validate() is True
 
-
+@pytest.mark.usefixtures("app")
 class TestLoginForm:
     """Login form."""
 
@@ -54,10 +55,10 @@ class TestLoginForm:
         user.save(dbsession)
         form = LoginForm(username=user.username, password="example")
         assert form.validate() is True
-        assert form.user == user
+        assert form.user.id == user.id
 
     @staticmethod
-    def test_validate_unknown_username(dbsession):
+    def test_validate_unknown_username(tables):
         """Unknown username."""
         form = LoginForm(username="unknown", password="example")
         assert form.validate() is False

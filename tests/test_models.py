@@ -8,7 +8,7 @@ from fm_database.models.user import Role, User
 from .factories import UserFactory
 
 
-@pytest.mark.usefixtures("dbsession")
+@pytest.mark.usefixtures("tables")
 class TestUser:
     """User tests."""
 
@@ -19,7 +19,7 @@ class TestUser:
         user.save(dbsession)
 
         retrieved = User.get_by_id(user.id)
-        assert retrieved == user
+        assert retrieved.id == user.id
 
     @staticmethod
     def test_created_at_defaults_to_datetime(dbsession):
@@ -39,7 +39,7 @@ class TestUser:
     @staticmethod
     def test_factory(dbsession):
         """Test user factory."""
-        user = UserFactory(password="myprecious")
+        user = UserFactory.create(session=dbsession, password="myprecious")
         dbsession.commit()
         assert bool(user.username)
         assert bool(user.email)
@@ -61,9 +61,9 @@ class TestUser:
         assert user.check_password("barfoobaz") is False
 
     @staticmethod
-    def test_full_name():
+    def test_full_name(dbsession):
         """User full name."""
-        user = UserFactory(first_name="Foo", last_name="Bar")
+        user = UserFactory.create(session=dbsession, first_name="Foo", last_name="Bar")
         assert user.full_name == "Foo Bar"
 
     @staticmethod
@@ -71,7 +71,7 @@ class TestUser:
         """Add a role to a user."""
         role = Role(name="admin")
         role.save(dbsession)
-        user = UserFactory()
+        user = UserFactory.create(session=dbsession)
         user.roles.append(role)
         user.save(dbsession)
         assert role in user.roles

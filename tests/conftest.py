@@ -52,7 +52,6 @@ def database_env(monkeysession):
 @pytest.fixture(scope="session")
 def dbsession():
     """Returns an sqlalchemy session."""
-
     yield get_session()
 
 
@@ -84,7 +83,7 @@ def tables(dbsession):
 
 
 @pytest.fixture
-def user(dbsession):
+def user(dbsession, tables):
     """A user for the tests."""
     user = UserFactory.create(session=dbsession, password="myprecious")
     dbsession.commit()
@@ -92,7 +91,7 @@ def user(dbsession):
 
 
 @pytest.fixture
-def admin_user(dbsession):
+def admin_user(dbsession, tables):
     """An admin user for the tests."""
     user = User(username="admin", email="admin@admin.com", password="admin")
 
@@ -103,7 +102,7 @@ def admin_user(dbsession):
 
 
 @pytest.fixture
-def admin_headers(admin_user, client):
+def admin_headers(admin_user, client, tables):
     """Log in the admin user and get the access_token."""
     data = {"username": admin_user.username, "password": "admin"}
     rep = client.post(

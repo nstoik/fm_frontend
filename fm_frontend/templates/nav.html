@@ -44,6 +44,11 @@
             {{ form.password(placeholder="Password", class_="form-control mr-1 mt-2") }}
             <button class="btn btn-primary mt-2 ml-auto" type="submit">Login</button>
         </form>
+        <ul class="navbar-nav my-auto">
+            <li class="nav-item">
+              <a class="nav-link navbar-text" href="{{ url_for('public.register') }}">Create account</a>
+            </li>
+          </ul>
         {% endif %}
     </div><!-- /.navbar-collapse -->
 </nav>

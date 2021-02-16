@@ -70,7 +70,6 @@ class TestLoggingIn:
         assert "Unknown user" in res
 
 
-@pytest.mark.skipif(True, reason="App not open for registration")
 class TestRegistering:
     """Register a user."""
 
@@ -111,10 +110,10 @@ class TestRegistering:
         assert "Passwords must match" in res
 
     @staticmethod
-    def test_sees_error_message_if_user_already_registered(user, testapp):
+    def test_sees_error_message_if_user_already_registered(user, testapp, dbsession):
         """Show error if user already registered."""
-        user = UserFactory(active=True)  # A registered user
-        user.save()
+        user = UserFactory.create(session=dbsession, active=True)  # A registered user
+        user.save(session=dbsession)
         # Goes to registration page
         res = testapp.get(url_for("public.register"))
         # Fills out form, but username is already registered

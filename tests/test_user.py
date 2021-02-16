@@ -1,5 +1,16 @@
 """Tests for the user."""
+import pytest
 from fm_database.models.user import User
+
+@pytest.mark.usefixtures("tables")
+class TestAPIUser:
+    """Test the API for Users."""
+
+    @staticmethod
+    def test_api_user_404(client, admin_headers):
+        """Test that an unknown user returns 404."""
+        rep = client.get("/api/v1/users/100000", headers=admin_headers)
+        assert rep.status_code == 404
 
 
 def test_get_user(client, dbsession, user, admin_headers):

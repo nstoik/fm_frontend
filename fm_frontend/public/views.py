@@ -43,8 +43,8 @@ def logout():
     return redirect(url_for("public.home"))
 
 
-# disable registering of new users
-# @blueprint.route('/register/', methods=['GET', 'POST'])
+
+@blueprint.route('/register/', methods=['GET', 'POST'])
 def register():
     """Register new user."""
     form = RegisterForm(request.form)
