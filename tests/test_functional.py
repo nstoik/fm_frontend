@@ -4,7 +4,6 @@
 See: http://webtest.readthedocs.org/
 """
 # pylint: disable=unused-argument
-import pytest
 from flask import url_for
 from fm_database.models.user import User
 

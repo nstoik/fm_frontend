@@ -6,6 +6,7 @@ import pytest
 from fm_frontend.public.forms import LoginForm
 from fm_frontend.user.forms import RegisterForm
 
+
 @pytest.mark.usefixtures("app")
 class TestRegisterForm:
     """Register form."""
@@ -43,6 +44,7 @@ class TestRegisterForm:
             confirm="example",
         )
         assert form.validate() is True
+
 
 @pytest.mark.usefixtures("app")
 class TestLoginForm:
