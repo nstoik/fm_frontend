@@ -7,9 +7,6 @@ name = "pypi"
 # testing packages
 pytest = "*"
 pytest-cov = "*"
-pytest-flask = "*"
-pytest-runner = "*"
-pytest-factoryboy = "*"
 WebTest = "*"
 factory-boy = "*"
 
@@ -29,18 +26,21 @@ pylint = "*"
 e1839a8 = {path = ".",editable = true}
 
 [packages]
+# Flask
+Flask = "~=1.1"
+
 # Flask Static Digest
 Flask-Static-Digest = "~=0.2.1"
 
+# API
+flask-smorest = "~=0.29.0"
+marshmallow-sqlalchemy = "~=0.24.2"
+Flask-JWT-Extended = "~=4.0.2"
+
 email-validator = "*"
-Flask = "~=1.1"
 Flask-Caching = "~=1.9"
 flask-cors = "~=3.0.8"
 Flask-DebugToolbar = "~=0.11"
-Flask-Marshmallow = "~=0.13"
-marshmallow-sqlalchemy = "~=0.23"
-Flask-RESTful = "~=0.3.7"
-Flask-JWT-Extended = "~=4.0.2"
 Flask-WTF = "~=0.14.2"
 WTForms = "~=2.3.1"
 Flask-Login = "~=0.5.0"
