@@ -7,12 +7,17 @@ class Config:
     """Base configuration."""
 
     SECRET_KEY = os.environ.get("FM_FRONTEND_SECRET", "secret-key")
+    JWT_SECRET_KEY = os.environ.get("FM_FRONTEND_JWT_SECRET", "secret-key")
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # For Flask-Smorest
+    API_TITLE = "FM API"
+    API_VERSION = "v1"
+    OPENAPI_VERSION = "3.0.2"
 
 
 class ProdConfig(Config):
