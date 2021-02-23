@@ -1,2 +1,2 @@
 """API definition."""
-from . import views  # noqa: F401
+from . import user  # noqa: F401
