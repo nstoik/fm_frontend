@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template
 from flask.helpers import get_env
 from flask_cors import CORS  # type: ignore
 from fm_database.models.user import User
@@ -13,6 +13,7 @@ from fm_frontend.extensions import (
     flask_static_digest,
     jwt,
     login_manager,
+    smorest_api,
 )
 
 
@@ -52,6 +53,7 @@ def configure_app(app, config=None, testing=False):
 
 def register_extensions(app):
     """Register Flask extensions."""
+    smorest_api.init_app(app)
     cache.init_app(app)
     csrf_protect.init_app(app)
     login_manager.init_app(app)
@@ -64,14 +66,11 @@ def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
+    app.register_blueprint(api.user.views.blueprint)
 
-    # api blueprints
     CORS(auth.views.blueprint)
-    CORS(api.views.blueprint)
     csrf_protect.exempt(auth.views.blueprint)
-    csrf_protect.exempt(api.views.blueprint)
     app.register_blueprint(auth.views.blueprint)
-    app.register_blueprint(api.views.blueprint)
 
 
 def register_errorhandlers(app):
@@ -81,7 +80,15 @@ def register_errorhandlers(app):
         """Render error template."""
         # If a HTTPException, pull the `code` attribute; default to 500
         error_code = getattr(error, "code", 500)
-        return render_template("{0}.html".format(error_code), error=error), error_code
+        # Try and get any data from the error.
+        data = getattr(error, "data", None)
+        if data is not None:
+            # If there is data in the data field of the error,
+            # the error came from the API. Render the error as follows
+            return jsonify(data), error_code
+
+        # Return the render_template of the error
+        return render_template(f"{error_code}.html", error=error), error_code
 
     for errcode in [400, 401, 404, 500]:
         app.errorhandler(errcode)(render_error)
