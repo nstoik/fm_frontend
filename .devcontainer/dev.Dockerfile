@@ -55,8 +55,8 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhisto
 
 # Change to the newly created user
 USER $USER_UID:$USER_GID
-COPY fm_frontend /workspaces/fm_frontend/fm_frontend
-COPY Pipfile* package* setup.py /workspaces/fm_frontend/
+COPY --chown=$USERNAME:$USERNAME fm_frontend /workspaces/fm_frontend/fm_frontend
+COPY --chown=$USERNAME:$USERNAME Pipfile* package* setup.py /workspaces/fm_frontend/
 WORKDIR /workspaces/fm_frontend
 
 # Set up the dev environment
