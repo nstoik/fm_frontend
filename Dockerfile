@@ -42,7 +42,6 @@ WORKDIR /workspaces/fm_frontend
 RUN pipenv install --deploy --ignore-pipfile
 # Copy over the stuff from the nodebuild
 COPY --from=nodebuild /workspaces/fm_frontend/static/build/ /workspaces/fm_frontend/fm_frontend/static/build/
-COPY --from=nodebuild /workspaces/fm_frontend/webpack/manifest.json /workspaces/fm_frontend/fm_frontend/webpack/manifest.json
 # Install the package so the commands work
 RUN pipenv run pip install -e .
 
