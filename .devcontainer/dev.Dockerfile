@@ -21,14 +21,11 @@ RUN apt-get update && \
     apt-get -yqq install git procps lsb-release && \
     # Install node prereqs, nodejs and yarn
     # Ref: https://deb.nodesource.com/setup_12.x
-    # Ref: https://yarnpkg.com/en/docs/install
-    echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb https://deb.nodesource.com/node_15.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
     wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-    wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     apt-get update && \
-    apt-get install -yqq nodejs yarn && \
-    npm i -g npm@^6 && \
+    apt-get install -yqq nodejs && \
+    npm i -g npm@^7 && \
     # Clean up
     apt-get autoremove -y && \
     apt-get clean -y && \
@@ -64,7 +61,7 @@ WORKDIR /workspaces/fm_frontend
 
 # Set up the dev environment
 RUN pipenv install --dev && \
-    npm install
+    npm install --include=dev
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=
