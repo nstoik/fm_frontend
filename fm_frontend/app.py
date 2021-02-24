@@ -69,7 +69,7 @@ def register_blueprints(app):
     app.register_blueprint(api.user.views.blueprint)
 
     CORS(auth.views.blueprint)
-    csrf_protect.exempt(auth.views.blueprint)
+    # csrf_protect.exempt(auth.views.blueprint)
     app.register_blueprint(auth.views.blueprint)
 
 
