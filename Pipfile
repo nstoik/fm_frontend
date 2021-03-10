@@ -35,7 +35,7 @@ Flask-Static-Digest = "~=0.2.1"
 # API
 flask-smorest = "~=0.29.0"
 marshmallow-sqlalchemy = "~=0.24.2"
-Flask-JWT-Extended = "~=4.0.2"
+Flask-JWT-Extended = "~=4.1.0"
 
 email-validator = "*"
 Flask-Caching = "~=1.9"
